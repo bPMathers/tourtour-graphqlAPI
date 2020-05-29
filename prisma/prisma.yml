@@ -1,0 +1,7 @@
+# this file gives prisma-deploy info it needs
+
+# dynamically assign the endpoint depending on which env we choose 
+endpoint: ${env:PRISMA_ENDPOINT}
+datamodel: datamodel.graphql
+# close Prisma API to the general public with a secret key
+secret: ${env:PRISMA_SECRET}
