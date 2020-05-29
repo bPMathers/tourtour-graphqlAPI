@@ -78,11 +78,11 @@ const Mutation = {
     }, info)
   },
 
-  createPost(parent, args, { prisma, request }, info) {
+  createReview(parent, args, { prisma, request }, info) {
     const userId = getUserId(request)
 
 
-    return prisma.mutation.createPost({
+    return prisma.mutation.createReview({
       data: {
         title: args.data.title,
         body: args.data.body,
@@ -96,35 +96,35 @@ const Mutation = {
     }, info)
   },
 
-  async updatePost(parent, args, { prisma, request }, info) {
+  async updateReview(parent, args, { prisma, request }, info) {
     const userId = getUserId(request)
-    const postExistsAndIsByAuthorizedUser = await prisma.exists.Post({
+    const reviewExistsAndIsByAuthorizedUser = await prisma.exists.Review({
       id: args.id,
       author: {
         id: userId
       }
     })
 
-    const isPublished = await prisma.exists.Post({
+    const isPublished = await prisma.exists.Review({
       id: args.id,
       published: true
     })
 
-    if (!postExistsAndIsByAuthorizedUser) {
-      throw new Error('Unable to update post')
+    if (!reviewExistsAndIsByAuthorizedUser) {
+      throw new Error('Unable to update review')
     }
 
     if (isPublished && args.data.published === false) {
       await prisma.mutation.deleteManyComments({
         where: {
-          post: {
+          review: {
             id: args.id
           }
         }
       })
     }
 
-    return prisma.mutation.updatePost({
+    return prisma.mutation.updateReview({
       data: args.data,
       where: {
         id: args.id
@@ -133,38 +133,38 @@ const Mutation = {
 
   },
 
-  async deletePost(parent, args, { prisma, request }, info) {
+  async deleteReview(parent, args, { prisma, request }, info) {
     const userId = getUserId(request)
-    const postExistsAndIsByAuthorizedUser = await prisma.exists.Post({
+    const reviewExistsAndIsByAuthorizedUser = await prisma.exists.Review({
       id: args.id,
       author: {
         id: userId
       }
     })
 
-    if (!postExistsAndIsByAuthorizedUser) {
-      throw new Error('Unable to delete post')
+    if (!reviewExistsAndIsByAuthorizedUser) {
+      throw new Error('Unable to delete review')
     }
 
-    return prisma.mutation.deletePost({ where: { id: args.id } }, info)
+    return prisma.mutation.deleteReview({ where: { id: args.id } }, info)
 
   },
 
   async createComment(parent, args, { prisma, request }, info) {
-    const postExistsAndIsPublished = await prisma.exists.Post({
-      id: args.data.post,
+    const reviewExistsAndIsPublished = await prisma.exists.Review({
+      id: args.data.review,
       published: true
 
     })
 
-    if (!postExistsAndIsPublished) {
-      throw new Error('Unable to find post')
+    if (!reviewExistsAndIsPublished) {
+      throw new Error('Unable to find review')
     }
 
     const userId = getUserId(request)
 
     if (!userId) {
-      throw new Error('You need to be logged in to comment on a post!')
+      throw new Error('You need to be logged in to comment on a review!')
     }
 
     return prisma.mutation.createComment({
@@ -175,9 +175,9 @@ const Mutation = {
             id: userId
           }
         },
-        post: {
+        review: {
           connect: {
-            id: args.data.post
+            id: args.data.review
           }
         }
       }

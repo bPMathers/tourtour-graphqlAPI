@@ -1,8 +1,5 @@
 <!---
 
-May 28th 2020
-GraphQL NodeJS Server + Prisma API Boilerplate, Including User, Post and Comment models
-v1.0
 
 ####################
 ### Dev + Test Setup
@@ -23,7 +20,7 @@ prisma deploy -e ../config/test.env
 Set default endpoint in .graphqlconfig and then npm run get-schema to generate/fetch schema
 
 -- START PRISMA API CONTAINER
-cd graphql-prisma/prisma && docker-compose up -d
+cd graphql-prisma/prisma && docker-compose up -d (http://localhost:4466/default/dev)
 
 -- RUN NODEJS SERVER IN DEV ENV --  
 npm run dev (http://localhost:4000)

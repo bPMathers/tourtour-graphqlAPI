@@ -1,15 +1,15 @@
 # Schema for our NodeJS GraphQL API. Should represent a subset of what we want to use from what is available in the Prisma GraphQL API (?)
 
 # line below is to import (enums, in this case. could we want some other stuff ?) from generated file instead of adding it manually everytime we re-generate it. Use a coma separated list to import more than one
-# import UserOrderByInput, PostOrderByInput, CommentOrderByInput from './generated/prisma.graphql'
+# import UserOrderByInput, ReviewOrderByInput, CommentOrderByInput from './generated/prisma.graphql'
 
 type Query {
     users(query: String, first: Int, skip: Int, after: String, orderBy: UserOrderByInput): [User!]!
-    posts(query: String, first: Int, skip: Int, after: String, orderBy: PostOrderByInput): [Post!]!
-    myPosts(query: String, first: Int, skip: Int, after: String): [Post!]!
+    reviews(query: String, first: Int, skip: Int, after: String, orderBy: ReviewOrderByInput): [Review!]!
+    myReviews(query: String, first: Int, skip: Int, after: String): [Review!]!
     comments(first: Int, skip: Int, after: String, orderBy: CommentOrderByInput): [Comment!]!
     me: User!
-    post(id: ID!): Post!
+    review(id: ID!): Review!
   }
 
   type Mutation {
@@ -17,17 +17,17 @@ type Query {
     loginUser(data: LoginUserInput!): AuthPayload!
     deleteUser: User!
     updateUser(data: UpdateUserInput!): User!
-    createPost(data: CreatePostInput!): Post!
-    deletePost(id: ID!): Post!
-    updatePost(id: ID!, data: UpdatePostInput): Post!
+    createReview(data: CreateReviewInput!): Review!
+    deleteReview(id: ID!): Review!
+    updateReview(id: ID!, data: UpdateReviewInput): Review!
     createComment(data: CreateCommentInput!): Comment!
     deleteComment(id: ID!): Comment!
     updateComment(id: ID!, data: UpdateCommentInput): Comment!
   }  
 
   type Subscription {
-    comment(postId: ID!): CommentSubscriptionPayload!
-    post: PostSubscriptionPayload!
+    comment(ReviewId: ID!): CommentSubscriptionPayload!
+    review: ReviewSubscriptionPayload!
   }
 
   type AuthPayload {
@@ -53,13 +53,13 @@ type Query {
     password: String
   }
 
-  input CreatePostInput {
+  input CreateReviewInput {
     title: String!
     body: String!
     published: Boolean!
   }
 
-  input UpdatePostInput {
+  input UpdateReviewInput {
     title: String
     body: String
     published: Boolean
@@ -67,7 +67,7 @@ type Query {
 
   input CreateCommentInput {
     text: String!
-    post: ID!
+    review: ID!
   }
 
   input UpdateCommentInput {
@@ -78,13 +78,13 @@ type Query {
     name: String!
     email: String
     password: String!
-    posts: [Post!]!
+    reviews: [Review!]!
     comments: [Comment!]!
     updatedAt: String!
     createdAt: String!
   }
 
-  type Post {
+  type Review {
     id: ID!
     title: String!
     body: String!
@@ -99,7 +99,7 @@ type Query {
     id: ID!
     text: String!
     author: User!
-    post: Post!
+    review: Review!
     updatedAt: String!
     createdAt: String!
   }
@@ -110,9 +110,9 @@ type Query {
     DELETED
   }
 
-  type PostSubscriptionPayload {
+  type ReviewSubscriptionPayload {
     mutation: MutationType!
-    node: Post!
+    node: Review!
   }
 
   type CommentSubscriptionPayload {

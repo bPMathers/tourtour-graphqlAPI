@@ -21,10 +21,10 @@ const User = {
             return 'you are not allowed to view passwords in the client'
         }
     },
-    posts: {
+    reviews: {
         fragment: 'fragment userId on User { id }',
         resolve(parent, args, { prisma }, info) {
-            return prisma.query.posts({
+            return prisma.query.reviews({
                 where: {
                     published: true,
                     author: {

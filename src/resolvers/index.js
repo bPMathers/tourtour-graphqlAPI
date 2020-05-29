@@ -4,7 +4,7 @@ import Query from './Query';
 import Mutation from './Mutation';
 import Subscription from './Subscription';
 import User from './User';
-import Post from './Post';
+import Review from './Review';
 import Comment from './Comment';
 
 const resolvers = {
@@ -12,7 +12,7 @@ const resolvers = {
     Mutation,
     Subscription,
     User,
-    Post,
+    Review,
     Comment
 }
 

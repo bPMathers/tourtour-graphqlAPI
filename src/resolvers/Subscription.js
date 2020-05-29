@@ -1,12 +1,12 @@
 const Subscription = {
 
     comment: {
-        subscribe(parents, { postId }, { prisma }, info) {
+        subscribe(parents, { reviewId }, { prisma }, info) {
             return prisma.subscription.comment({
                 where: {
                     node: {
-                        post: {
-                            id: postId
+                        review: {
+                            id: reviewId
                         }
                     }
                 }
@@ -15,9 +15,9 @@ const Subscription = {
         }
     },
 
-    post: {
+    review: {
         subscribe(parents, args, { prisma }, info) {
-            return prisma.subscription.post({
+            return prisma.subscription.review({
                 where: {
                     node: {
                         published: true

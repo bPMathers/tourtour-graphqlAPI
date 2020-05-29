@@ -2,7 +2,7 @@ import 'cross-fetch/polyfill';
 import prisma from '../src/prisma';
 import { gql } from 'apollo-boost'
 
-import seedDatabase, { userOne, commentOne, commentTwo, postOne } from './utils/seedDatabase';
+import seedDatabase, { userOne, commentOne, commentTwo, reviewOne } from './utils/seedDatabase';
 import getClient from './utils/getClient';
 import { deleteComment, subscribeToComments } from './utils/operations';
 
@@ -38,13 +38,13 @@ test('Should not be able to delete other users comment', async () => {
 });
 
 // sometimes timeout on this one. redo and should pass
-test.skip('Should subscribe to comments for a post', async (done) => {
+test.skip('Should subscribe to comments for a review', async (done) => {
     const variables = {
-        postId: postOne.post.id
+        reviewId: reviewOne.review.id
     }
     client.subscribe({ query: subscribeToComments, variables }).subscribe({
         next(response) {
-            // This will be triggered when an operation runs on our subscribed post
+            // This will be triggered when an operation runs on our subscribed review
             expect(response.data.comment.mutation).toBe('DELETED')
             done()
         }

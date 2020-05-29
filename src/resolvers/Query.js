@@ -19,7 +19,7 @@ const Query = {
     return prisma.query.users(opArgs, info)
   },
 
-  posts(parent, args, { prisma }, info) {
+  reviews(parent, args, { prisma }, info) {
     const opArgs = {
       where: {
         published: true
@@ -37,10 +37,10 @@ const Query = {
       }]
     }
 
-    return prisma.query.posts(opArgs, info)
+    return prisma.query.reviews(opArgs, info)
 
   },
-  myPosts(parents, args, { prisma, request }, info) {
+  myReviews(parents, args, { prisma, request }, info) {
     const userId = getUserId(request)
     const opArgs = {
       where: {
@@ -61,7 +61,7 @@ const Query = {
       }]
     }
 
-    return prisma.query.posts(opArgs, info)
+    return prisma.query.reviews(opArgs, info)
   },
   comments(parent, args, { prisma }, info) {
     const opArgs = {
@@ -87,10 +87,10 @@ const Query = {
       email: 'mike@example.com',
     };
   },
-  async post(parent, args, { prisma, request }, info) {
+  async review(parent, args, { prisma, request }, info) {
     const userId = getUserId(request, false)
 
-    const posts = await prisma.query.posts({
+    const reviews = await prisma.query.reviews({
       where: {
         id: args.id,
         OR: [{
@@ -103,11 +103,11 @@ const Query = {
       }
     }, info)
 
-    if (posts.length === 0) {
-      throw new Error('Post not found')
+    if (reviews.length === 0) {
+      throw new Error('review not found')
     }
 
-    return posts[0]
+    return reviews[0]
 
   }
 

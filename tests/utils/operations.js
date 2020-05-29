@@ -40,9 +40,9 @@ const getProfile = gql`
   }
 `;
 
-const getPosts = gql`
+const getReviews = gql`
   query {
-    posts {
+    reviews {
       id
       title
       body
@@ -55,9 +55,9 @@ const getPosts = gql`
   }
 `;
 
-const updatePost = gql`
-  mutation($id: ID!, $data: UpdatePostInput!) {
-    updatePost(
+const updateReview = gql`
+  mutation($id: ID!, $data: UpdateReviewInput!) {
+    updateReview(
       id: $id,
       data: $data
   ){
@@ -69,9 +69,9 @@ const updatePost = gql`
   }
 `;
 
-const createPost = gql`
-  mutation($data: CreatePostInput!) {
-    createPost(
+const createReview = gql`
+  mutation($data: CreateReviewInput!) {
+    createReview(
       data: $data
     ) {
       id
@@ -82,9 +82,9 @@ const createPost = gql`
   }
 `;
 
-const deletePost = gql`
+const deleteReview = gql`
   mutation($id: ID!) {
-    deletePost(
+    deleteReview(
         id: $id
     ){
         id
@@ -93,8 +93,8 @@ const deletePost = gql`
 `;
 
 const subscribeToComments = gql`
-  subscription($postId: ID!) {
-    comment(postId: $postId){
+  subscription($reviewId: ID!) {
+    comment(reviewId: $reviewId){
       mutation
       node {
         id
@@ -115,4 +115,4 @@ const deleteComment = gql`
     }
 `
 
-export { createUser, login, getUsers, getProfile, createPost, updatePost, deletePost, getPosts, deleteComment, subscribeToComments }
+export { createUser, login, getUsers, getProfile, createReview, updateReview, deleteReview, getReviews, deleteComment, subscribeToComments }

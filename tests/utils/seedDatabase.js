@@ -24,22 +24,22 @@ const userTwo = {
     jwt: undefined
 }
 
-const postOne = {
+const reviewOne = {
     input: {
-        title: 'First Post Title',
-        body: 'Fist Post Body',
+        title: 'First review Title',
+        body: 'Fist review Body',
         published: true,
     },
-    post: undefined
+    review: undefined
 }
 
-const postTwo = {
+const reviewTwo = {
     input: {
-        title: 'Second Post Title',
-        body: 'Second Post Body',
+        title: 'Second review Title',
+        body: 'Second review Body',
         published: false,
     },
-    post: undefined
+    review: undefined
 }
 
 const commentOne = {
@@ -59,7 +59,7 @@ const commentTwo = {
 const seedDatabase = async () => {
     // Delete test data
     await prisma.mutation.deleteManyComments()
-    await prisma.mutation.deleteManyPosts()
+    await prisma.mutation.deleteManyReviews()
     await prisma.mutation.deleteManyUsers()
 
     // Finish constructing assets with data coming back from the DB upon creation
@@ -73,9 +73,9 @@ const seedDatabase = async () => {
     })
     userTwo.jwt = jwt.sign({ userId: userTwo.user.id }, process.env.JWT_SECRET)
 
-    postOne.post = await prisma.mutation.createPost({
+    reviewOne.review = await prisma.mutation.createReview({
         data: {
-            ...postOne.input,
+            ...reviewOne.input,
             author: {
                 connect: {
                     id: userOne.user.id
@@ -84,9 +84,9 @@ const seedDatabase = async () => {
         }
     })
 
-    postTwo.post = await prisma.mutation.createPost({
+    reviewTwo.review = await prisma.mutation.createReview({
         data: {
-            ...postTwo.input,
+            ...reviewTwo.input,
             author: {
                 connect: {
                     id: userOne.user.id
@@ -104,9 +104,9 @@ const seedDatabase = async () => {
                     id: userTwo.user.id
                 }
             },
-            post: {
+            review: {
                 connect: {
-                    id: postOne.post.id
+                    id: reviewOne.review.id
                 }
             }
         }
@@ -120,9 +120,9 @@ const seedDatabase = async () => {
                     id: userOne.user.id
                 }
             },
-            post: {
+            review: {
                 connect: {
-                    id: postOne.post.id
+                    id: reviewOne.review.id
                 }
             }
         }
@@ -130,4 +130,4 @@ const seedDatabase = async () => {
 
 }
 
-export { seedDatabase as default, userOne, userTwo, postOne, postTwo, commentOne, commentTwo }
+export { seedDatabase as default, userOne, userTwo, reviewOne, reviewTwo, commentOne, commentTwo }
