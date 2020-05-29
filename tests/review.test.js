@@ -12,7 +12,7 @@ beforeEach(seedDatabase);
 
 
 
-test('Should expose only published reviews', async () => {
+test.skip('Should expose only published reviews', async () => {
   const response = await client.query({ query: getReview });
 
   expect(response.data.reviews.length).toBe(1);
