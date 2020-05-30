@@ -129,6 +129,24 @@ const Query = {
     return prisma.query.categories(opArgs, info)
   },
 
+  places(parent, args, { prisma }, info) {
+    const opArgs = {
+      // first: args.first,
+      // skip: args.skip,
+      // after: args.after,
+      // orderBy: args.orderBy
+    }
+
+    // if (args.query) {
+    //   opArgs.where = {
+    //     OR: [{
+    //       name_contains: args.query
+    //     }]
+    //   }
+    // }
+    return prisma.query.places(opArgs, info)
+  },
+
 }
 
 export { Query as default }

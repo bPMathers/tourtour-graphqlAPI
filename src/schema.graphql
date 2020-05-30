@@ -11,6 +11,7 @@ type Query {
     me: User!
     review(id: ID!): Review!
     categories: [Category!]!
+    places: [Place!]!
   }
 
   type Mutation {
@@ -115,6 +116,13 @@ type Query {
     id: ID!
     title: String!
     imageUrl: String!
+    updatedAt: String!
+    createdAt: String!
+  }
+
+  type Place {
+    id: ID!
+    name: String!
     updatedAt: String!
     createdAt: String!
   }
