@@ -32,7 +32,7 @@ type Review {
 
   type Category {
     id: ID! @id
-    title: String!
+    title: String! @unique
     imageUrl: String!
     createdAt: DateTime! @createdAt
     updatedAt: DateTime! @updatedAt

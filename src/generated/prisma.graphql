@@ -1,5 +1,5 @@
 # source: http://localhost:4466/tourtour/dev
-# timestamp: Sat May 30 2020 12:45:34 GMT-0400 (Eastern Daylight Time)
+# timestamp: Sat May 30 2020 13:01:04 GMT-0400 (Eastern Daylight Time)
 
 type AggregateCategory {
   count: Int!
@@ -300,6 +300,7 @@ input CategoryWhereInput {
 
 input CategoryWhereUniqueInput {
   id: ID
+  title: String
 }
 
 type Comment implements Node {
