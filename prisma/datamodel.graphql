@@ -42,7 +42,7 @@ type Category {
 type Place {
   id: ID! @id
   name: String!
-  addedBy: User!
+  addedBy: User
   url: String
   phone: String
   category: Category

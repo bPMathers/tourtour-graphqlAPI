@@ -1,5 +1,5 @@
 # source: http://localhost:4466/tourtour/dev
-# timestamp: Sat May 30 2020 16:53:49 GMT-0400 (Eastern Daylight Time)
+# timestamp: Sat May 30 2020 17:02:44 GMT-0400 (Eastern Daylight Time)
 
 type AggregateCategory {
   count: Int!
@@ -1419,7 +1419,7 @@ type PageInfo {
 type Place implements Node {
   id: ID!
   name: String!
-  addedBy: User!
+  addedBy: User
   url: String
   phone: String
   category: Category
@@ -1450,7 +1450,7 @@ input PlaceCreateInput {
   avgRating: Float
   mainPhoto: String
   photos: PlaceCreatephotosInput
-  addedBy: UserCreateOneInput!
+  addedBy: UserCreateOneInput
   category: CategoryCreateOneInput
   reviews: ReviewCreateManyInput
   location: LocationCreateOneInput
@@ -1542,7 +1542,7 @@ input PlaceUpdateInput {
   avgRating: Float
   mainPhoto: String
   photos: PlaceUpdatephotosInput
-  addedBy: UserUpdateOneRequiredInput
+  addedBy: UserUpdateOneInput
   category: CategoryUpdateOneInput
   reviews: ReviewUpdateManyInput
   location: LocationUpdateOneInput
@@ -2668,9 +2668,11 @@ input UserUpdateManyMutationInput {
   password: String
 }
 
-input UserUpdateOneRequiredInput {
+input UserUpdateOneInput {
   create: UserCreateInput
   connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
   update: UserUpdateDataInput
   upsert: UserUpsertNestedInput
 }
