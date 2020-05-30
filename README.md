@@ -45,7 +45,8 @@ Set PRISMA_ENDPOINT in config/prod.env
 prisma deploy -e ../config/prod.env
 connected to heroku app tour-tour-77a28e321d, danvcuvs9cp4o3 DB (heroku sometimes changes this since I am on free tier. check emails if something stops working), schema default$default
 
--- Node Server --
+-- Production Node Server --
+running at https://frozen-caverns-07163.herokuapp.com/
 
 ###########################################################
 ### Notes on using Prisma Cloud/Heroku
