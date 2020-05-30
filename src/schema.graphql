@@ -10,6 +10,7 @@ type Query {
     comments(first: Int, skip: Int, after: String, orderBy: CommentOrderByInput): [Comment!]!
     me: User!
     review(id: ID!): Review!
+    categories: [Category!]!
   }
 
   type Mutation {
@@ -106,6 +107,14 @@ type Query {
     text: String!
     author: User!
     review: Review!
+    updatedAt: String!
+    createdAt: String!
+  }
+
+  type Category {
+    id: ID!
+    title: String!
+    imageUrl: String!
     updatedAt: String!
     createdAt: String!
   }
