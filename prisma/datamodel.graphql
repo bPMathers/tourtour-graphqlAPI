@@ -29,3 +29,11 @@ type Review {
     createdAt: DateTime! @createdAt
     updatedAt: DateTime! @updatedAt
   }
+
+  type Category {
+    id: ID! @id
+    title: String!
+    imageUrl: String!
+    createdAt: DateTime! @createdAt
+    updatedAt: DateTime! @updatedAt
+  }

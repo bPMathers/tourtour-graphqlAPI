@@ -23,6 +23,7 @@ type Query {
     createComment(data: CreateCommentInput!): Comment!
     deleteComment(id: ID!): Comment!
     updateComment(id: ID!, data: UpdateCommentInput): Comment!
+    createCategory(data: CreateCategoryInput): Category!
   }  
 
   type Subscription {
@@ -57,6 +58,11 @@ type Query {
     title: String!
     body: String!
     published: Boolean!
+  }
+
+  input CreateCategoryInput {
+    title: String!
+    imageUrl: String!
   }
 
   input UpdateReviewInput {
