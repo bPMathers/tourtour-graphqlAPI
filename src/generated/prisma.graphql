@@ -1,5 +1,5 @@
 # source: http://localhost:4466/tourtour/dev
-# timestamp: Tue Jun 02 2020 00:08:26 GMT-0400 (Eastern Daylight Time)
+# timestamp: Tue Jun 02 2020 10:44:02 GMT-0400 (Eastern Daylight Time)
 
 type AggregateCategory {
   count: Int!
@@ -37,6 +37,7 @@ type BatchPayload {
 type Category implements Node {
   id: ID!
   title: String!
+  addedBy: User!
   imageUrl: String
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -56,6 +57,7 @@ input CategoryCreateInput {
   id: ID
   title: String!
   imageUrl: String
+  addedBy: UserCreateOneInput!
 }
 
 input CategoryCreateOneInput {
@@ -133,11 +135,13 @@ input CategorySubscriptionWhereInput {
 input CategoryUpdateDataInput {
   title: String
   imageUrl: String
+  addedBy: UserUpdateOneRequiredInput
 }
 
 input CategoryUpdateInput {
   title: String
   imageUrl: String
+  addedBy: UserUpdateOneRequiredInput
 }
 
 input CategoryUpdateManyMutationInput {
@@ -332,6 +336,7 @@ input CategoryWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
+  addedBy: UserWhereInput
 }
 
 input CategoryWhereUniqueInput {
@@ -817,6 +822,8 @@ type Location implements Node {
   zip_code: String
   country: String
   formatted_address: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -874,6 +881,10 @@ enum LocationOrderByInput {
   country_DESC
   formatted_address_ASC
   formatted_address_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type LocationPreviousValues {
@@ -886,6 +897,8 @@ type LocationPreviousValues {
   zip_code: String
   country: String
   formatted_address: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type LocationSubscriptionPayload {
@@ -1341,6 +1354,50 @@ input LocationWhereInput {
 
   """All values not ending with the given string."""
   formatted_address_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
 }
 
 input LocationWhereUniqueInput {
@@ -1354,45 +1411,45 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
+  createReview(data: ReviewCreateInput!): Review!
   createComment(data: CommentCreateInput!): Comment!
   createPlace(data: PlaceCreateInput!): Place!
   createPhoto(data: PhotoCreateInput!): Photo!
-  createReview(data: ReviewCreateInput!): Review!
   createLocation(data: LocationCreateInput!): Location!
   createCategory(data: CategoryCreateInput!): Category!
   createUser(data: UserCreateInput!): User!
+  updateReview(data: ReviewUpdateInput!, where: ReviewWhereUniqueInput!): Review
   updateComment(data: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment
   updatePlace(data: PlaceUpdateInput!, where: PlaceWhereUniqueInput!): Place
   updatePhoto(data: PhotoUpdateInput!, where: PhotoWhereUniqueInput!): Photo
-  updateReview(data: ReviewUpdateInput!, where: ReviewWhereUniqueInput!): Review
   updateLocation(data: LocationUpdateInput!, where: LocationWhereUniqueInput!): Location
   updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  deleteReview(where: ReviewWhereUniqueInput!): Review
   deleteComment(where: CommentWhereUniqueInput!): Comment
   deletePlace(where: PlaceWhereUniqueInput!): Place
   deletePhoto(where: PhotoWhereUniqueInput!): Photo
-  deleteReview(where: ReviewWhereUniqueInput!): Review
   deleteLocation(where: LocationWhereUniqueInput!): Location
   deleteCategory(where: CategoryWhereUniqueInput!): Category
   deleteUser(where: UserWhereUniqueInput!): User
+  upsertReview(where: ReviewWhereUniqueInput!, create: ReviewCreateInput!, update: ReviewUpdateInput!): Review!
   upsertComment(where: CommentWhereUniqueInput!, create: CommentCreateInput!, update: CommentUpdateInput!): Comment!
   upsertPlace(where: PlaceWhereUniqueInput!, create: PlaceCreateInput!, update: PlaceUpdateInput!): Place!
   upsertPhoto(where: PhotoWhereUniqueInput!, create: PhotoCreateInput!, update: PhotoUpdateInput!): Photo!
-  upsertReview(where: ReviewWhereUniqueInput!, create: ReviewCreateInput!, update: ReviewUpdateInput!): Review!
   upsertLocation(where: LocationWhereUniqueInput!, create: LocationCreateInput!, update: LocationUpdateInput!): Location!
   upsertCategory(where: CategoryWhereUniqueInput!, create: CategoryCreateInput!, update: CategoryUpdateInput!): Category!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  updateManyReviews(data: ReviewUpdateManyMutationInput!, where: ReviewWhereInput): BatchPayload!
   updateManyComments(data: CommentUpdateManyMutationInput!, where: CommentWhereInput): BatchPayload!
   updateManyPlaces(data: PlaceUpdateManyMutationInput!, where: PlaceWhereInput): BatchPayload!
   updateManyPhotos(data: PhotoUpdateManyMutationInput!, where: PhotoWhereInput): BatchPayload!
-  updateManyReviews(data: ReviewUpdateManyMutationInput!, where: ReviewWhereInput): BatchPayload!
   updateManyLocations(data: LocationUpdateManyMutationInput!, where: LocationWhereInput): BatchPayload!
   updateManyCategories(data: CategoryUpdateManyMutationInput!, where: CategoryWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  deleteManyReviews(where: ReviewWhereInput): BatchPayload!
   deleteManyComments(where: CommentWhereInput): BatchPayload!
   deleteManyPlaces(where: PlaceWhereInput): BatchPayload!
   deleteManyPhotos(where: PhotoWhereInput): BatchPayload!
-  deleteManyReviews(where: ReviewWhereInput): BatchPayload!
   deleteManyLocations(where: LocationWhereInput): BatchPayload!
   deleteManyCategories(where: CategoryWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
@@ -1429,8 +1486,11 @@ type PageInfo {
 type Photo implements Node {
   id: ID!
   url: String!
-  addedBy: User
-  placeId: Place!
+  addedBy: User!
+  place: Place!
+  isMain: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -1446,19 +1506,33 @@ type PhotoConnection {
 input PhotoCreateInput {
   id: ID
   url: String!
-  addedBy: UserCreateOneInput
-  placeId: PlaceCreateOneWithoutPhotosInput!
+  isMain: Boolean!
+  addedBy: UserCreateOneWithoutPhotosInput!
+  place: PlaceCreateOneWithoutPhotosInput!
 }
 
-input PhotoCreateManyWithoutPlaceIdInput {
-  create: [PhotoCreateWithoutPlaceIdInput!]
+input PhotoCreateManyWithoutAddedByInput {
+  create: [PhotoCreateWithoutAddedByInput!]
   connect: [PhotoWhereUniqueInput!]
 }
 
-input PhotoCreateWithoutPlaceIdInput {
+input PhotoCreateManyWithoutPlaceInput {
+  create: [PhotoCreateWithoutPlaceInput!]
+  connect: [PhotoWhereUniqueInput!]
+}
+
+input PhotoCreateWithoutAddedByInput {
   id: ID
   url: String!
-  addedBy: UserCreateOneInput
+  isMain: Boolean!
+  place: PlaceCreateOneWithoutPhotosInput!
+}
+
+input PhotoCreateWithoutPlaceInput {
+  id: ID
+  url: String!
+  isMain: Boolean!
+  addedBy: UserCreateOneWithoutPhotosInput!
 }
 
 """An edge in a connection."""
@@ -1475,11 +1549,20 @@ enum PhotoOrderByInput {
   id_DESC
   url_ASC
   url_DESC
+  isMain_ASC
+  isMain_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type PhotoPreviousValues {
   id: ID!
   url: String!
+  isMain: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input PhotoScalarWhereInput {
@@ -1571,6 +1654,54 @@ input PhotoScalarWhereInput {
 
   """All values not ending with the given string."""
   url_not_ends_with: String
+  isMain: Boolean
+
+  """All values that are not equal to given value."""
+  isMain_not: Boolean
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
 }
 
 type PhotoSubscriptionPayload {
@@ -1612,28 +1743,43 @@ input PhotoSubscriptionWhereInput {
 
 input PhotoUpdateInput {
   url: String
-  addedBy: UserUpdateOneInput
-  placeId: PlaceUpdateOneRequiredWithoutPhotosInput
+  isMain: Boolean
+  addedBy: UserUpdateOneRequiredWithoutPhotosInput
+  place: PlaceUpdateOneRequiredWithoutPhotosInput
 }
 
 input PhotoUpdateManyDataInput {
   url: String
+  isMain: Boolean
 }
 
 input PhotoUpdateManyMutationInput {
   url: String
+  isMain: Boolean
 }
 
-input PhotoUpdateManyWithoutPlaceIdInput {
-  create: [PhotoCreateWithoutPlaceIdInput!]
+input PhotoUpdateManyWithoutAddedByInput {
+  create: [PhotoCreateWithoutAddedByInput!]
   connect: [PhotoWhereUniqueInput!]
   set: [PhotoWhereUniqueInput!]
   disconnect: [PhotoWhereUniqueInput!]
   delete: [PhotoWhereUniqueInput!]
-  update: [PhotoUpdateWithWhereUniqueWithoutPlaceIdInput!]
+  update: [PhotoUpdateWithWhereUniqueWithoutAddedByInput!]
   updateMany: [PhotoUpdateManyWithWhereNestedInput!]
   deleteMany: [PhotoScalarWhereInput!]
-  upsert: [PhotoUpsertWithWhereUniqueWithoutPlaceIdInput!]
+  upsert: [PhotoUpsertWithWhereUniqueWithoutAddedByInput!]
+}
+
+input PhotoUpdateManyWithoutPlaceInput {
+  create: [PhotoCreateWithoutPlaceInput!]
+  connect: [PhotoWhereUniqueInput!]
+  set: [PhotoWhereUniqueInput!]
+  disconnect: [PhotoWhereUniqueInput!]
+  delete: [PhotoWhereUniqueInput!]
+  update: [PhotoUpdateWithWhereUniqueWithoutPlaceInput!]
+  updateMany: [PhotoUpdateManyWithWhereNestedInput!]
+  deleteMany: [PhotoScalarWhereInput!]
+  upsert: [PhotoUpsertWithWhereUniqueWithoutPlaceInput!]
 }
 
 input PhotoUpdateManyWithWhereNestedInput {
@@ -1641,20 +1787,38 @@ input PhotoUpdateManyWithWhereNestedInput {
   data: PhotoUpdateManyDataInput!
 }
 
-input PhotoUpdateWithoutPlaceIdDataInput {
+input PhotoUpdateWithoutAddedByDataInput {
   url: String
-  addedBy: UserUpdateOneInput
+  isMain: Boolean
+  place: PlaceUpdateOneRequiredWithoutPhotosInput
 }
 
-input PhotoUpdateWithWhereUniqueWithoutPlaceIdInput {
-  where: PhotoWhereUniqueInput!
-  data: PhotoUpdateWithoutPlaceIdDataInput!
+input PhotoUpdateWithoutPlaceDataInput {
+  url: String
+  isMain: Boolean
+  addedBy: UserUpdateOneRequiredWithoutPhotosInput
 }
 
-input PhotoUpsertWithWhereUniqueWithoutPlaceIdInput {
+input PhotoUpdateWithWhereUniqueWithoutAddedByInput {
   where: PhotoWhereUniqueInput!
-  update: PhotoUpdateWithoutPlaceIdDataInput!
-  create: PhotoCreateWithoutPlaceIdInput!
+  data: PhotoUpdateWithoutAddedByDataInput!
+}
+
+input PhotoUpdateWithWhereUniqueWithoutPlaceInput {
+  where: PhotoWhereUniqueInput!
+  data: PhotoUpdateWithoutPlaceDataInput!
+}
+
+input PhotoUpsertWithWhereUniqueWithoutAddedByInput {
+  where: PhotoWhereUniqueInput!
+  update: PhotoUpdateWithoutAddedByDataInput!
+  create: PhotoCreateWithoutAddedByInput!
+}
+
+input PhotoUpsertWithWhereUniqueWithoutPlaceInput {
+  where: PhotoWhereUniqueInput!
+  update: PhotoUpdateWithoutPlaceDataInput!
+  create: PhotoCreateWithoutPlaceInput!
 }
 
 input PhotoWhereInput {
@@ -1746,8 +1910,56 @@ input PhotoWhereInput {
 
   """All values not ending with the given string."""
   url_not_ends_with: String
+  isMain: Boolean
+
+  """All values that are not equal to given value."""
+  isMain_not: Boolean
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
   addedBy: UserWhereInput
-  placeId: PlaceWhereInput
+  place: PlaceWhereInput
 }
 
 input PhotoWhereUniqueInput {
@@ -1757,7 +1969,7 @@ input PhotoWhereUniqueInput {
 type Place implements Node {
   id: ID!
   name: String!
-  addedBy: User
+  addedBy: User!
   url: String
   phone: String
   category: Category
@@ -1765,8 +1977,9 @@ type Place implements Node {
   review_count: Int
   avgRating: Float
   location: Location
-  mainPhoto: String
   photos(where: PhotoWhereInput, orderBy: PhotoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Photo!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -1786,16 +1999,20 @@ input PlaceCreateInput {
   phone: String
   review_count: Int
   avgRating: Float
-  mainPhoto: String
-  addedBy: UserCreateOneInput
+  addedBy: UserCreateOneInput!
   category: CategoryCreateOneInput
-  reviews: ReviewCreateManyInput
+  reviews: ReviewCreateManyWithoutPlaceInput
   location: LocationCreateOneInput
-  photos: PhotoCreateManyWithoutPlaceIdInput
+  photos: PhotoCreateManyWithoutPlaceInput
 }
 
 input PlaceCreateOneWithoutPhotosInput {
   create: PlaceCreateWithoutPhotosInput
+  connect: PlaceWhereUniqueInput
+}
+
+input PlaceCreateOneWithoutReviewsInput {
+  create: PlaceCreateWithoutReviewsInput
   connect: PlaceWhereUniqueInput
 }
 
@@ -1806,11 +2023,23 @@ input PlaceCreateWithoutPhotosInput {
   phone: String
   review_count: Int
   avgRating: Float
-  mainPhoto: String
-  addedBy: UserCreateOneInput
+  addedBy: UserCreateOneInput!
   category: CategoryCreateOneInput
-  reviews: ReviewCreateManyInput
+  reviews: ReviewCreateManyWithoutPlaceInput
   location: LocationCreateOneInput
+}
+
+input PlaceCreateWithoutReviewsInput {
+  id: ID
+  name: String!
+  url: String
+  phone: String
+  review_count: Int
+  avgRating: Float
+  addedBy: UserCreateOneInput!
+  category: CategoryCreateOneInput
+  location: LocationCreateOneInput
+  photos: PhotoCreateManyWithoutPlaceInput
 }
 
 """An edge in a connection."""
@@ -1835,8 +2064,10 @@ enum PlaceOrderByInput {
   review_count_DESC
   avgRating_ASC
   avgRating_DESC
-  mainPhoto_ASC
-  mainPhoto_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type PlacePreviousValues {
@@ -1846,7 +2077,8 @@ type PlacePreviousValues {
   phone: String
   review_count: Int
   avgRating: Float
-  mainPhoto: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type PlaceSubscriptionPayload {
@@ -1892,12 +2124,11 @@ input PlaceUpdateInput {
   phone: String
   review_count: Int
   avgRating: Float
-  mainPhoto: String
-  addedBy: UserUpdateOneInput
+  addedBy: UserUpdateOneRequiredInput
   category: CategoryUpdateOneInput
-  reviews: ReviewUpdateManyInput
+  reviews: ReviewUpdateManyWithoutPlaceInput
   location: LocationUpdateOneInput
-  photos: PhotoUpdateManyWithoutPlaceIdInput
+  photos: PhotoUpdateManyWithoutPlaceInput
 }
 
 input PlaceUpdateManyMutationInput {
@@ -1906,7 +2137,6 @@ input PlaceUpdateManyMutationInput {
   phone: String
   review_count: Int
   avgRating: Float
-  mainPhoto: String
 }
 
 input PlaceUpdateOneRequiredWithoutPhotosInput {
@@ -1916,22 +2146,45 @@ input PlaceUpdateOneRequiredWithoutPhotosInput {
   upsert: PlaceUpsertWithoutPhotosInput
 }
 
+input PlaceUpdateOneRequiredWithoutReviewsInput {
+  create: PlaceCreateWithoutReviewsInput
+  connect: PlaceWhereUniqueInput
+  update: PlaceUpdateWithoutReviewsDataInput
+  upsert: PlaceUpsertWithoutReviewsInput
+}
+
 input PlaceUpdateWithoutPhotosDataInput {
   name: String
   url: String
   phone: String
   review_count: Int
   avgRating: Float
-  mainPhoto: String
-  addedBy: UserUpdateOneInput
+  addedBy: UserUpdateOneRequiredInput
   category: CategoryUpdateOneInput
-  reviews: ReviewUpdateManyInput
+  reviews: ReviewUpdateManyWithoutPlaceInput
   location: LocationUpdateOneInput
+}
+
+input PlaceUpdateWithoutReviewsDataInput {
+  name: String
+  url: String
+  phone: String
+  review_count: Int
+  avgRating: Float
+  addedBy: UserUpdateOneRequiredInput
+  category: CategoryUpdateOneInput
+  location: LocationUpdateOneInput
+  photos: PhotoUpdateManyWithoutPlaceInput
 }
 
 input PlaceUpsertWithoutPhotosInput {
   update: PlaceUpdateWithoutPhotosDataInput!
   create: PlaceCreateWithoutPhotosInput!
+}
+
+input PlaceUpsertWithoutReviewsInput {
+  update: PlaceUpdateWithoutReviewsDataInput!
+  create: PlaceCreateWithoutReviewsInput!
 }
 
 input PlaceWhereInput {
@@ -2147,46 +2400,50 @@ input PlaceWhereInput {
 
   """All values greater than or equal the given value."""
   avgRating_gte: Float
-  mainPhoto: String
+  createdAt: DateTime
 
   """All values that are not equal to given value."""
-  mainPhoto_not: String
+  createdAt_not: DateTime
 
   """All values that are contained in given list."""
-  mainPhoto_in: [String!]
+  createdAt_in: [DateTime!]
 
   """All values that are not contained in given list."""
-  mainPhoto_not_in: [String!]
+  createdAt_not_in: [DateTime!]
 
   """All values less than the given value."""
-  mainPhoto_lt: String
+  createdAt_lt: DateTime
 
   """All values less than or equal the given value."""
-  mainPhoto_lte: String
+  createdAt_lte: DateTime
 
   """All values greater than the given value."""
-  mainPhoto_gt: String
+  createdAt_gt: DateTime
 
   """All values greater than or equal the given value."""
-  mainPhoto_gte: String
+  createdAt_gte: DateTime
+  updatedAt: DateTime
 
-  """All values containing the given string."""
-  mainPhoto_contains: String
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
 
-  """All values not containing the given string."""
-  mainPhoto_not_contains: String
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
 
-  """All values starting with the given string."""
-  mainPhoto_starts_with: String
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
 
-  """All values not starting with the given string."""
-  mainPhoto_not_starts_with: String
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
 
-  """All values ending with the given string."""
-  mainPhoto_ends_with: String
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
 
-  """All values not ending with the given string."""
-  mainPhoto_not_ends_with: String
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
   addedBy: UserWhereInput
   category: CategoryWhereInput
   reviews_every: ReviewWhereInput
@@ -2200,6 +2457,7 @@ input PlaceWhereInput {
 
 input PlaceWhereUniqueInput {
   id: ID
+  name: String
 }
 
 enum PrismaDatabase {
@@ -2207,24 +2465,24 @@ enum PrismaDatabase {
 }
 
 type Query {
+  reviews(where: ReviewWhereInput, orderBy: ReviewOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Review]!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment]!
   places(where: PlaceWhereInput, orderBy: PlaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Place]!
   photos(where: PhotoWhereInput, orderBy: PhotoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Photo]!
-  reviews(where: ReviewWhereInput, orderBy: ReviewOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Review]!
   locations(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Location]!
   categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  review(where: ReviewWhereUniqueInput!): Review
   comment(where: CommentWhereUniqueInput!): Comment
   place(where: PlaceWhereUniqueInput!): Place
   photo(where: PhotoWhereUniqueInput!): Photo
-  review(where: ReviewWhereUniqueInput!): Review
   location(where: LocationWhereUniqueInput!): Location
   category(where: CategoryWhereUniqueInput!): Category
   user(where: UserWhereUniqueInput!): User
+  reviewsConnection(where: ReviewWhereInput, orderBy: ReviewOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ReviewConnection!
   commentsConnection(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CommentConnection!
   placesConnection(where: PlaceWhereInput, orderBy: PlaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PlaceConnection!
   photosConnection(where: PhotoWhereInput, orderBy: PhotoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PhotoConnection!
-  reviewsConnection(where: ReviewWhereInput, orderBy: ReviewOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ReviewConnection!
   locationsConnection(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocationConnection!
   categoriesConnection(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CategoryConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -2243,6 +2501,7 @@ type Review implements Node {
   body: String!
   author: User!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  place: Place!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -2264,15 +2523,16 @@ input ReviewCreateInput {
   body: String!
   author: UserCreateOneWithoutReviewsInput!
   comments: CommentCreateManyWithoutReviewInput
-}
-
-input ReviewCreateManyInput {
-  create: [ReviewCreateInput!]
-  connect: [ReviewWhereUniqueInput!]
+  place: PlaceCreateOneWithoutReviewsInput!
 }
 
 input ReviewCreateManyWithoutAuthorInput {
   create: [ReviewCreateWithoutAuthorInput!]
+  connect: [ReviewWhereUniqueInput!]
+}
+
+input ReviewCreateManyWithoutPlaceInput {
+  create: [ReviewCreateWithoutPlaceInput!]
   connect: [ReviewWhereUniqueInput!]
 }
 
@@ -2287,6 +2547,7 @@ input ReviewCreateWithoutAuthorInput {
   title: String!
   body: String!
   comments: CommentCreateManyWithoutReviewInput
+  place: PlaceCreateOneWithoutReviewsInput!
 }
 
 input ReviewCreateWithoutCommentsInput {
@@ -2295,6 +2556,16 @@ input ReviewCreateWithoutCommentsInput {
   title: String!
   body: String!
   author: UserCreateOneWithoutReviewsInput!
+  place: PlaceCreateOneWithoutReviewsInput!
+}
+
+input ReviewCreateWithoutPlaceInput {
+  id: ID
+  rating: Int!
+  title: String!
+  body: String!
+  author: UserCreateOneWithoutReviewsInput!
+  comments: CommentCreateManyWithoutReviewInput
 }
 
 """An edge in a connection."""
@@ -2564,38 +2835,19 @@ input ReviewSubscriptionWhereInput {
   node: ReviewWhereInput
 }
 
-input ReviewUpdateDataInput {
-  rating: Int
-  title: String
-  body: String
-  author: UserUpdateOneRequiredWithoutReviewsInput
-  comments: CommentUpdateManyWithoutReviewInput
-}
-
 input ReviewUpdateInput {
   rating: Int
   title: String
   body: String
   author: UserUpdateOneRequiredWithoutReviewsInput
   comments: CommentUpdateManyWithoutReviewInput
+  place: PlaceUpdateOneRequiredWithoutReviewsInput
 }
 
 input ReviewUpdateManyDataInput {
   rating: Int
   title: String
   body: String
-}
-
-input ReviewUpdateManyInput {
-  create: [ReviewCreateInput!]
-  connect: [ReviewWhereUniqueInput!]
-  set: [ReviewWhereUniqueInput!]
-  disconnect: [ReviewWhereUniqueInput!]
-  delete: [ReviewWhereUniqueInput!]
-  update: [ReviewUpdateWithWhereUniqueNestedInput!]
-  updateMany: [ReviewUpdateManyWithWhereNestedInput!]
-  deleteMany: [ReviewScalarWhereInput!]
-  upsert: [ReviewUpsertWithWhereUniqueNestedInput!]
 }
 
 input ReviewUpdateManyMutationInput {
@@ -2616,6 +2868,18 @@ input ReviewUpdateManyWithoutAuthorInput {
   upsert: [ReviewUpsertWithWhereUniqueWithoutAuthorInput!]
 }
 
+input ReviewUpdateManyWithoutPlaceInput {
+  create: [ReviewCreateWithoutPlaceInput!]
+  connect: [ReviewWhereUniqueInput!]
+  set: [ReviewWhereUniqueInput!]
+  disconnect: [ReviewWhereUniqueInput!]
+  delete: [ReviewWhereUniqueInput!]
+  update: [ReviewUpdateWithWhereUniqueWithoutPlaceInput!]
+  updateMany: [ReviewUpdateManyWithWhereNestedInput!]
+  deleteMany: [ReviewScalarWhereInput!]
+  upsert: [ReviewUpsertWithWhereUniqueWithoutPlaceInput!]
+}
+
 input ReviewUpdateManyWithWhereNestedInput {
   where: ReviewScalarWhereInput!
   data: ReviewUpdateManyDataInput!
@@ -2633,6 +2897,7 @@ input ReviewUpdateWithoutAuthorDataInput {
   title: String
   body: String
   comments: CommentUpdateManyWithoutReviewInput
+  place: PlaceUpdateOneRequiredWithoutReviewsInput
 }
 
 input ReviewUpdateWithoutCommentsDataInput {
@@ -2640,11 +2905,15 @@ input ReviewUpdateWithoutCommentsDataInput {
   title: String
   body: String
   author: UserUpdateOneRequiredWithoutReviewsInput
+  place: PlaceUpdateOneRequiredWithoutReviewsInput
 }
 
-input ReviewUpdateWithWhereUniqueNestedInput {
-  where: ReviewWhereUniqueInput!
-  data: ReviewUpdateDataInput!
+input ReviewUpdateWithoutPlaceDataInput {
+  rating: Int
+  title: String
+  body: String
+  author: UserUpdateOneRequiredWithoutReviewsInput
+  comments: CommentUpdateManyWithoutReviewInput
 }
 
 input ReviewUpdateWithWhereUniqueWithoutAuthorInput {
@@ -2652,21 +2921,26 @@ input ReviewUpdateWithWhereUniqueWithoutAuthorInput {
   data: ReviewUpdateWithoutAuthorDataInput!
 }
 
+input ReviewUpdateWithWhereUniqueWithoutPlaceInput {
+  where: ReviewWhereUniqueInput!
+  data: ReviewUpdateWithoutPlaceDataInput!
+}
+
 input ReviewUpsertWithoutCommentsInput {
   update: ReviewUpdateWithoutCommentsDataInput!
   create: ReviewCreateWithoutCommentsInput!
-}
-
-input ReviewUpsertWithWhereUniqueNestedInput {
-  where: ReviewWhereUniqueInput!
-  update: ReviewUpdateDataInput!
-  create: ReviewCreateInput!
 }
 
 input ReviewUpsertWithWhereUniqueWithoutAuthorInput {
   where: ReviewWhereUniqueInput!
   update: ReviewUpdateWithoutAuthorDataInput!
   create: ReviewCreateWithoutAuthorInput!
+}
+
+input ReviewUpsertWithWhereUniqueWithoutPlaceInput {
+  where: ReviewWhereUniqueInput!
+  update: ReviewUpdateWithoutPlaceDataInput!
+  create: ReviewCreateWithoutPlaceInput!
 }
 
 input ReviewWhereInput {
@@ -2868,6 +3142,7 @@ input ReviewWhereInput {
   comments_every: CommentWhereInput
   comments_some: CommentWhereInput
   comments_none: CommentWhereInput
+  place: PlaceWhereInput
 }
 
 input ReviewWhereUniqueInput {
@@ -2875,10 +3150,10 @@ input ReviewWhereUniqueInput {
 }
 
 type Subscription {
+  review(where: ReviewSubscriptionWhereInput): ReviewSubscriptionPayload
   comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
   place(where: PlaceSubscriptionWhereInput): PlaceSubscriptionPayload
   photo(where: PhotoSubscriptionWhereInput): PhotoSubscriptionPayload
-  review(where: ReviewSubscriptionWhereInput): ReviewSubscriptionPayload
   location(where: LocationSubscriptionWhereInput): LocationSubscriptionPayload
   category(where: CategorySubscriptionWhereInput): CategorySubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
@@ -2892,6 +3167,7 @@ type User implements Node {
   password: String!
   reviews(where: ReviewWhereInput, orderBy: ReviewOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Review!]
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  photos(where: PhotoWhereInput, orderBy: PhotoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Photo!]
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -2914,6 +3190,7 @@ input UserCreateInput {
   password: String!
   reviews: ReviewCreateManyWithoutAuthorInput
   comments: CommentCreateManyWithoutAuthorInput
+  photos: PhotoCreateManyWithoutAddedByInput
 }
 
 input UserCreateOneInput {
@@ -2923,6 +3200,11 @@ input UserCreateOneInput {
 
 input UserCreateOneWithoutCommentsInput {
   create: UserCreateWithoutCommentsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutPhotosInput {
+  create: UserCreateWithoutPhotosInput
   connect: UserWhereUniqueInput
 }
 
@@ -2938,6 +3220,17 @@ input UserCreateWithoutCommentsInput {
   email: String!
   password: String!
   reviews: ReviewCreateManyWithoutAuthorInput
+  photos: PhotoCreateManyWithoutAddedByInput
+}
+
+input UserCreateWithoutPhotosInput {
+  id: ID
+  name: String!
+  imageUrl: String
+  email: String!
+  password: String!
+  reviews: ReviewCreateManyWithoutAuthorInput
+  comments: CommentCreateManyWithoutAuthorInput
 }
 
 input UserCreateWithoutReviewsInput {
@@ -2947,6 +3240,7 @@ input UserCreateWithoutReviewsInput {
   email: String!
   password: String!
   comments: CommentCreateManyWithoutAuthorInput
+  photos: PhotoCreateManyWithoutAddedByInput
 }
 
 """An edge in a connection."""
@@ -3029,6 +3323,7 @@ input UserUpdateDataInput {
   password: String
   reviews: ReviewUpdateManyWithoutAuthorInput
   comments: CommentUpdateManyWithoutAuthorInput
+  photos: PhotoUpdateManyWithoutAddedByInput
 }
 
 input UserUpdateInput {
@@ -3038,6 +3333,7 @@ input UserUpdateInput {
   password: String
   reviews: ReviewUpdateManyWithoutAuthorInput
   comments: CommentUpdateManyWithoutAuthorInput
+  photos: PhotoUpdateManyWithoutAddedByInput
 }
 
 input UserUpdateManyMutationInput {
@@ -3047,11 +3343,9 @@ input UserUpdateManyMutationInput {
   password: String
 }
 
-input UserUpdateOneInput {
+input UserUpdateOneRequiredInput {
   create: UserCreateInput
   connect: UserWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
   update: UserUpdateDataInput
   upsert: UserUpsertNestedInput
 }
@@ -3061,6 +3355,13 @@ input UserUpdateOneRequiredWithoutCommentsInput {
   connect: UserWhereUniqueInput
   update: UserUpdateWithoutCommentsDataInput
   upsert: UserUpsertWithoutCommentsInput
+}
+
+input UserUpdateOneRequiredWithoutPhotosInput {
+  create: UserCreateWithoutPhotosInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutPhotosDataInput
+  upsert: UserUpsertWithoutPhotosInput
 }
 
 input UserUpdateOneRequiredWithoutReviewsInput {
@@ -3076,6 +3377,16 @@ input UserUpdateWithoutCommentsDataInput {
   email: String
   password: String
   reviews: ReviewUpdateManyWithoutAuthorInput
+  photos: PhotoUpdateManyWithoutAddedByInput
+}
+
+input UserUpdateWithoutPhotosDataInput {
+  name: String
+  imageUrl: String
+  email: String
+  password: String
+  reviews: ReviewUpdateManyWithoutAuthorInput
+  comments: CommentUpdateManyWithoutAuthorInput
 }
 
 input UserUpdateWithoutReviewsDataInput {
@@ -3084,6 +3395,7 @@ input UserUpdateWithoutReviewsDataInput {
   email: String
   password: String
   comments: CommentUpdateManyWithoutAuthorInput
+  photos: PhotoUpdateManyWithoutAddedByInput
 }
 
 input UserUpsertNestedInput {
@@ -3094,6 +3406,11 @@ input UserUpsertNestedInput {
 input UserUpsertWithoutCommentsInput {
   update: UserUpdateWithoutCommentsDataInput!
   create: UserCreateWithoutCommentsInput!
+}
+
+input UserUpsertWithoutPhotosInput {
+  update: UserUpdateWithoutPhotosDataInput!
+  create: UserCreateWithoutPhotosInput!
 }
 
 input UserUpsertWithoutReviewsInput {
@@ -3360,6 +3677,9 @@ input UserWhereInput {
   comments_every: CommentWhereInput
   comments_some: CommentWhereInput
   comments_none: CommentWhereInput
+  photos_every: PhotoWhereInput
+  photos_some: PhotoWhereInput
+  photos_none: PhotoWhereInput
 }
 
 input UserWhereUniqueInput {
