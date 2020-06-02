@@ -220,7 +220,22 @@ const Mutation = {
     }
 
     return prisma.mutation.deleteComment({ where: { id: args.id } }, info)
-  }
+  },
+
+  createPhoto(parent, args, { prisma, request }, info) {
+    // const userId = getUserId(request)
+
+    return prisma.mutation.createPhoto({
+      data: {
+        url: args.data.url,
+        placeId: {
+          connect: {
+            id: args.data.placeId
+          }
+        }
+      }
+    }, info)
+  },
 }
 
 export default Mutation

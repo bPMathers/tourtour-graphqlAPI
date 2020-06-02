@@ -1,4 +1,3 @@
-
 type User {
   id: ID! @id
   name: String!
@@ -22,14 +21,14 @@ type Review {
   updatedAt: DateTime! @updatedAt
 }
 
- type Comment {
-    id: ID! @id
-    text: String!
-    author: User! @relation(name: "CommentToUser", onDelete: SET_NULL)
-    review: Review! @relation(name: "CommentToReview", onDelete: SET_NULL)
-    createdAt: DateTime! @createdAt
-    updatedAt: DateTime! @updatedAt
-  }
+type Comment {
+  id: ID! @id
+  text: String!
+  author: User! @relation(name: "CommentToUser", onDelete: SET_NULL)
+  review: Review! @relation(name: "CommentToReview", onDelete: SET_NULL)
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
 
 type Category {
   id: ID! @id
@@ -49,9 +48,9 @@ type Place {
   reviews: [Review]
   review_count: Int
   avgRating: Float
-  location: Location 
+  location: Location
   mainPhoto: String
-  photos: [String] @scalarList(strategy: RELATION)
+  photos: [Photo]
 }
 
 type Location {
@@ -64,4 +63,11 @@ type Location {
   zip_code: String
   country: String
   formatted_address: String
+}
+
+type Photo {
+  id: ID! @id
+  url: String!
+  addedBy: User
+  placeId: String!
 }

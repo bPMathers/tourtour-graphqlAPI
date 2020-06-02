@@ -6,80 +6,90 @@ const Query = {
       first: args.first,
       skip: args.skip,
       after: args.after,
-      orderBy: args.orderBy
-    }
+      orderBy: args.orderBy,
+    };
 
     if (args.query) {
       opArgs.where = {
-        OR: [{
-          name_contains: args.query
-        }]
-      }
+        OR: [
+          {
+            name_contains: args.query,
+          },
+        ],
+      };
     }
-    return prisma.query.users(opArgs, info)
+    return prisma.query.users(opArgs, info);
   },
 
   reviews(parent, args, { prisma }, info) {
     const opArgs = {
       where: {
-        published: true
+        published: true,
       },
       first: args.first,
       skip: args.skip,
       after: args.after,
-    }
+    };
 
     if (args.query) {
-      opArgs.where.OR = [{
-        title_contains: args.query
-      }, {
-        body_contains: args.query
-      }]
+      opArgs.where.OR = [
+        {
+          title_contains: args.query,
+        },
+        {
+          body_contains: args.query,
+        },
+      ];
     }
 
-    return prisma.query.reviews(opArgs, info)
-
+    return prisma.query.reviews(opArgs, info);
   },
   myReviews(parents, args, { prisma, request }, info) {
-    const userId = getUserId(request)
+    const userId = getUserId(request);
     const opArgs = {
       where: {
         author: {
-          id: userId
-        }
+          id: userId,
+        },
       },
       first: args.first,
       skip: args.skip,
       after: args.after,
-    }
+    };
 
     if (args.query) {
-      opArgs.where.OR = [{
-        title_contains: args.query
-      }, {
-        body_contains: args.query
-      }]
+      opArgs.where.OR = [
+        {
+          title_contains: args.query,
+        },
+        {
+          body_contains: args.query,
+        },
+      ];
     }
 
-    return prisma.query.reviews(opArgs, info)
+    return prisma.query.reviews(opArgs, info);
   },
   comments(parent, args, { prisma }, info) {
     const opArgs = {
       first: args.first,
       skip: args.skip,
       after: args.after,
-    }
+    };
 
-    return prisma.query.comments(opArgs, info)
+    return prisma.query.comments(opArgs, info);
   },
   me(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request)
+    const userId = getUserId(request);
 
-    return prisma.query.user({
-      where: {
-        id: userId
-      }
-    }, info)
+    return prisma.query.user(
+      {
+        where: {
+          id: userId,
+        },
+      },
+      info
+    );
 
     return {
       id: 'abc123',
@@ -88,27 +98,32 @@ const Query = {
     };
   },
   async review(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request, false)
+    const userId = getUserId(request, false);
 
-    const reviews = await prisma.query.reviews({
-      where: {
-        id: args.id,
-        OR: [{
-          published: true
-        }, {
-          author: {
-            id: userId
-          }
-        }]
-      }
-    }, info)
+    const reviews = await prisma.query.reviews(
+      {
+        where: {
+          id: args.id,
+          OR: [
+            {
+              published: true,
+            },
+            {
+              author: {
+                id: userId,
+              },
+            },
+          ],
+        },
+      },
+      info
+    );
 
     if (reviews.length === 0) {
-      throw new Error('review not found')
+      throw new Error('review not found');
     }
 
-    return reviews[0]
-
+    return reviews[0];
   },
 
   categories(parent, args, { prisma }, info) {
@@ -117,7 +132,7 @@ const Query = {
       // skip: args.skip,
       // after: args.after,
       // orderBy: args.orderBy
-    }
+    };
 
     // if (args.query) {
     //   opArgs.where = {
@@ -126,7 +141,7 @@ const Query = {
     //     }]
     //   }
     // }
-    return prisma.query.categories(opArgs, info)
+    return prisma.query.categories(opArgs, info);
   },
 
   places(parent, args, { prisma }, info) {
@@ -135,18 +150,37 @@ const Query = {
       // skip: args.skip,
       // after: args.after,
       // orderBy: args.orderBy
+    };
+
+    if (args.query) {
+      opArgs.where = {
+        category: {
+          id: args.query,
+        },
+      };
     }
 
-    // if (args.query) {
-    //   opArgs.where = {
-    //     OR: [{
-    //       name_contains: args.query
-    //     }]
-    //   }
-    // }
-    return prisma.query.places(opArgs, info)
+    return prisma.query.places(opArgs, info);
   },
 
-}
+  photos(parent, args, { prisma }, info) {
+    const opArgs = {
+      // first: args.first,
+      // skip: args.skip,
+      // after: args.after,
+      // orderBy: args.orderBy
+    };
 
-export { Query as default }
+    if (args.query) {
+      opArgs.where = {
+        placeId: {
+          id: args.query,
+        },
+      };
+    }
+
+    return prisma.query.photos(opArgs, info);
+  },
+};
+
+export { Query as default };

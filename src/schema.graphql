@@ -4,141 +4,168 @@
 # import UserOrderByInput, ReviewOrderByInput, CommentOrderByInput from './generated/prisma.graphql'
 
 type Query {
-    users(query: String, first: Int, skip: Int, after: String, orderBy: UserOrderByInput): [User!]!
-    reviews(query: String, first: Int, skip: Int, after: String, orderBy: ReviewOrderByInput): [Review!]!
-    myReviews(query: String, first: Int, skip: Int, after: String): [Review!]!
-    comments(first: Int, skip: Int, after: String, orderBy: CommentOrderByInput): [Comment!]!
-    me: User!
-    review(id: ID!): Review!
-    categories: [Category!]!
-    places: [Place!]!
-  }
+  users(
+    query: String
+    first: Int
+    skip: Int
+    after: String
+    orderBy: UserOrderByInput
+  ): [User!]!
+  reviews(
+    query: String
+    first: Int
+    skip: Int
+    after: String
+    orderBy: ReviewOrderByInput
+  ): [Review!]!
+  myReviews(query: String, first: Int, skip: Int, after: String): [Review!]!
+  comments(
+    first: Int
+    skip: Int
+    after: String
+    orderBy: CommentOrderByInput
+  ): [Comment!]!
+  me: User!
+  review(id: ID!): Review!
+  categories: [Category!]!
+  places(query: String): [Place!]!
+  photos(query: String): [Photo]
+}
 
-  type Mutation {
-    createUser(data: CreateUserInput!): AuthPayload!
-    loginUser(data: LoginUserInput!): AuthPayload!
-    deleteUser: User!
-    updateUser(data: UpdateUserInput!): User!
-    createReview(data: CreateReviewInput!): Review!
-    deleteReview(id: ID!): Review!
-    updateReview(id: ID!, data: UpdateReviewInput): Review!
-    createComment(data: CreateCommentInput!): Comment!
-    deleteComment(id: ID!): Comment!
-    updateComment(id: ID!, data: UpdateCommentInput): Comment!
-    createCategory(data: CreateCategoryInput): Category!
-  }  
+type Mutation {
+  createUser(data: CreateUserInput!): AuthPayload!
+  loginUser(data: LoginUserInput!): AuthPayload!
+  deleteUser: User!
+  updateUser(data: UpdateUserInput!): User!
+  createReview(data: CreateReviewInput!): Review!
+  deleteReview(id: ID!): Review!
+  updateReview(id: ID!, data: UpdateReviewInput): Review!
+  createComment(data: CreateCommentInput!): Comment!
+  deleteComment(id: ID!): Comment!
+  updateComment(id: ID!, data: UpdateCommentInput): Comment!
+  createCategory(data: CreateCategoryInput): Category!
+  createPhoto(data: CreatePhotoInput!): Photo!
+}
 
-  type Subscription {
-    comment(ReviewId: ID!): CommentSubscriptionPayload!
-    review: ReviewSubscriptionPayload!
-  }
+type Subscription {
+  comment(ReviewId: ID!): CommentSubscriptionPayload!
+  review: ReviewSubscriptionPayload!
+}
 
-  type AuthPayload {
-    user: User!
-    token: String!
-  }
+type AuthPayload {
+  user: User!
+  token: String!
+}
 
-  input LoginUserInput {
-    email: String!
-    password: String!
-  }
+input LoginUserInput {
+  email: String!
+  password: String!
+}
 
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+}
 
-  input CreateUserInput {
-    name: String!
-    email: String!
-    password: String!
-  }
+input UpdateUserInput {
+  name: String
+  email: String
+  password: String
+}
 
-  input UpdateUserInput {
-    name: String
-    email: String
-    password: String
-  }
+input CreateReviewInput {
+  title: String!
+  body: String!
+  published: Boolean!
+}
 
-  input CreateReviewInput {
-    title: String!
-    body: String!
-    published: Boolean!
-  }
+input CreateCategoryInput {
+  title: String!
+  imageUrl: String!
+}
 
-  input CreateCategoryInput {
-    title: String!
-    imageUrl: String!
-  }
+input UpdateReviewInput {
+  title: String
+  body: String
+  published: Boolean
+}
 
-  input UpdateReviewInput {
-    title: String
-    body: String
-    published: Boolean
-  }
+input CreateCommentInput {
+  text: String!
+  review: ID!
+}
 
-  input CreateCommentInput {
-    text: String!
-    review: ID!
-  }
+input UpdateCommentInput {
+  text: String
+}
 
-  input UpdateCommentInput {
-    text: String
-  }
-  type User {
-    id: ID!
-    name: String!
-    email: String
-    password: String!
-    reviews: [Review!]!
-    comments: [Comment!]!
-    updatedAt: String!
-    createdAt: String!
-  }
+input CreatePhotoInput {
+  url: String!
+  placeId: String!
+}
 
-  type Review {
-    id: ID!
-    title: String!
-    body: String!
-    published: Boolean!
-    author: User!
-    comments: [Comment!]!
-    updatedAt: String!
-    createdAt: String!
-  }
+type User {
+  id: ID!
+  name: String!
+  email: String
+  password: String!
+  reviews: [Review!]!
+  comments: [Comment!]!
+  updatedAt: String!
+  createdAt: String!
+}
 
-  type Comment {
-    id: ID!
-    text: String!
-    author: User!
-    review: Review!
-    updatedAt: String!
-    createdAt: String!
-  }
+type Review {
+  id: ID!
+  title: String!
+  body: String!
+  published: Boolean!
+  author: User!
+  comments: [Comment!]!
+  updatedAt: String!
+  createdAt: String!
+}
 
-  type Category {
-    id: ID!
-    title: String!
-    imageUrl: String!
-    updatedAt: String!
-    createdAt: String!
-  }
+type Comment {
+  id: ID!
+  text: String!
+  author: User!
+  review: Review!
+  updatedAt: String!
+  createdAt: String!
+}
 
-  type Place {
-    id: ID!
-    name: String!
-    updatedAt: String!
-    createdAt: String!
-  }
+type Category {
+  id: ID!
+  title: String!
+  imageUrl: String!
+  updatedAt: String!
+  createdAt: String!
+}
 
-  enum MutationType {
-    CREATED
-    UPDATED
-    DELETED
-  }
+type Place {
+  id: ID!
+  name: String!
+  mainPhoto: String
+  photos: [Photo]
+  category: Category
+  updatedAt: String!
+  createdAt: String!
+}
 
-  type ReviewSubscriptionPayload {
-    mutation: MutationType!
-    node: Review!
-  }
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
 
-  type CommentSubscriptionPayload {
-    mutation: MutationType!
-    node: Comment
-  }
+type ReviewSubscriptionPayload {
+  mutation: MutationType!
+  node: Review!
+}
+
+type CommentSubscriptionPayload {
+  mutation: MutationType!
+  node: Comment
+}
