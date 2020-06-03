@@ -7,6 +7,8 @@ type User {
   reviews: [Review!]! @relation(name: "ReviewToUser", onDelete: CASCADE)
   comments: [Comment!]! @relation(name: "CommentToUser", onDelete: CASCADE)
   photos: [Photo!]! @relation(name: "PhotoToUser", onDelete: CASCADE)
+  places: [Place!]!
+  categories: [Category!]!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -52,6 +54,7 @@ type Place {
   review_count: Int
   avgRating: Float
   location: Location
+  imageUrl: String
   photos: [Photo] @relation(name: "PhotoToPlace", onDelete: CASCADE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
@@ -76,7 +79,6 @@ type Photo {
   url: String!
   addedBy: User! @relation(name: "PhotoToUser", onDelete: SET_NULL)
   place: Place! @relation(name: "PhotoToPlace", onDelete: SET_NULL)
-  isMain: Boolean!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }

@@ -228,11 +228,16 @@ const Mutation = {
     return prisma.mutation.createPhoto({
       data: {
         url: args.data.url,
-        placeId: {
+        addedBy: {
+          connect: {
+            id: "ckay6pdbc009u0778w2bb7lb5"
+          },
+        },
+        place: {
           connect: {
             id: args.data.placeId
-          }
-        }
+          },
+        },
       }
     }, info)
   },

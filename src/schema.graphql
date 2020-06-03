@@ -11,6 +11,7 @@ type Query {
     after: String
     orderBy: UserOrderByInput
   ): [User!]!
+  user(query: String): User!
   reviews(
     query: String
     first: Int
@@ -27,9 +28,10 @@ type Query {
   ): [Comment!]!
   me: User!
   review(id: ID!): Review!
-  categories: [Category!]!
-  places(query: String): [Place!]!
+  categories: [Category!]
+  places(query: String): [Place!]
   photos(query: String): [Photo]
+  locations: [Location!]
 }
 
 type Mutation {
@@ -109,9 +111,13 @@ type User {
   id: ID!
   name: String!
   email: String
+  imageUrl: String
   password: String!
   reviews: [Review!]!
   comments: [Comment!]!
+  photos: [Photo!]!
+  places: [Place!]!
+  categories: [Category!]!
   updatedAt: String!
   createdAt: String!
 }
@@ -120,8 +126,9 @@ type Review {
   id: ID!
   title: String!
   body: String!
-  published: Boolean!
   author: User!
+  rating: Int!
+  place: Place!
   comments: [Comment!]!
   updatedAt: String!
   createdAt: String!
@@ -139,19 +146,41 @@ type Comment {
 type Category {
   id: ID!
   title: String!
-  imageUrl: String!
+  addedBy: User!
+  imageUrl: String
   updatedAt: String!
   createdAt: String!
 }
 
 type Place {
   id: ID!
-  name: String!
-  mainPhoto: String
-  photos: [Photo]
+  name: String! 
+  addedBy: User!
+  url: String
+  phone: String
   category: Category
-  updatedAt: String!
-  createdAt: String!
+  reviews: [Review] 
+  review_count: Int
+  avgRating: Float
+  location: Location
+  imageUrl: String
+  photos: [Photo] 
+  createdAt: DateTime! 
+  updatedAt: DateTime! 
+}
+
+type Location {
+  id: ID! 
+  address1: String
+  address2: String
+  address3: String
+  city: String
+  state: String
+  zip_code: String
+  country: String
+  formatted_address: String
+  createdAt: DateTime! 
+  updatedAt: DateTime! 
 }
 
 enum MutationType {

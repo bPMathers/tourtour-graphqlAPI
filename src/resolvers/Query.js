@@ -1,6 +1,18 @@
 import getUserId from '../utils/getUserId';
 
 const Query = {
+  // is this query (and other single item queries)even used somewhere on the client?
+  user(parent, args, { prisma, request }, info) {
+    // const userId = getUserId(request);
+    return prisma.query.user(
+      {
+        where: {
+          id: args.query,
+        },
+      },
+      info
+    );
+  },
   users(parent, args, { prisma }, info) {
     const opArgs = {
       first: args.first,
@@ -23,23 +35,27 @@ const Query = {
 
   reviews(parent, args, { prisma }, info) {
     const opArgs = {
-      where: {
-        published: true,
-      },
       first: args.first,
       skip: args.skip,
       after: args.after,
     };
 
+    // if (args.query) {
+    //   opArgs.where.OR = [
+    //     {
+    //       title_contains: args.query,
+    //     },
+    //     {
+    //       body_contains: args.query,
+    //     },
+    //   ];
+    // }
     if (args.query) {
-      opArgs.where.OR = [
-        {
-          title_contains: args.query,
-        },
-        {
-          body_contains: args.query,
-        },
-      ];
+      opArgs.where = {
+        place: {
+          id: args.query
+        }
+      }
     }
 
     return prisma.query.reviews(opArgs, info);
@@ -98,23 +114,23 @@ const Query = {
     };
   },
   async review(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request, false);
+    // const userId = getUserId(request, false);
 
     const reviews = await prisma.query.reviews(
       {
-        where: {
-          id: args.id,
-          OR: [
-            {
-              published: true,
-            },
-            {
-              author: {
-                id: userId,
-              },
-            },
-          ],
-        },
+        // where: {
+        //   id: args.id,
+        //   OR: [
+        //     {
+        //       published: true,
+        //     },
+        //     {
+        //       author: {
+        //         id: userId,
+        //       },
+        //     },
+        //   ],
+        // },
       },
       info
     );
@@ -173,7 +189,7 @@ const Query = {
 
     if (args.query) {
       opArgs.where = {
-        placeId: {
+        place: {
           id: args.query,
         },
       };
