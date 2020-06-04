@@ -1,15 +1,11 @@
 # source: http://localhost:4466/tourtour/dev
-# timestamp: Tue Jun 02 2020 13:25:01 GMT-0400 (Eastern Daylight Time)
+# timestamp: Thu Jun 04 2020 15:02:04 GMT-0400 (Eastern Daylight Time)
 
 type AggregateCategory {
   count: Int!
 }
 
 type AggregateComment {
-  count: Int!
-}
-
-type AggregateLocation {
   count: Int!
 }
 
@@ -1036,598 +1032,6 @@ scalar DateTime
 """Raw JSON value"""
 scalar Json
 
-type Location implements Node {
-  id: ID!
-  address1: String
-  address2: String
-  address3: String
-  city: String
-  state: String
-  zip_code: String
-  country: String
-  formatted_address: String
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-"""A connection to a list of items."""
-type LocationConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [LocationEdge]!
-  aggregate: AggregateLocation!
-}
-
-input LocationCreateInput {
-  id: ID
-  address1: String
-  address2: String
-  address3: String
-  city: String
-  state: String
-  zip_code: String
-  country: String
-  formatted_address: String
-}
-
-input LocationCreateOneInput {
-  create: LocationCreateInput
-  connect: LocationWhereUniqueInput
-}
-
-"""An edge in a connection."""
-type LocationEdge {
-  """The item at the end of the edge."""
-  node: Location!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum LocationOrderByInput {
-  id_ASC
-  id_DESC
-  address1_ASC
-  address1_DESC
-  address2_ASC
-  address2_DESC
-  address3_ASC
-  address3_DESC
-  city_ASC
-  city_DESC
-  state_ASC
-  state_DESC
-  zip_code_ASC
-  zip_code_DESC
-  country_ASC
-  country_DESC
-  formatted_address_ASC
-  formatted_address_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-}
-
-type LocationPreviousValues {
-  id: ID!
-  address1: String
-  address2: String
-  address3: String
-  city: String
-  state: String
-  zip_code: String
-  country: String
-  formatted_address: String
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-type LocationSubscriptionPayload {
-  mutation: MutationType!
-  node: Location
-  updatedFields: [String!]
-  previousValues: LocationPreviousValues
-}
-
-input LocationSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [LocationSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [LocationSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [LocationSubscriptionWhereInput!]
-
-  """The subscription event gets dispatched when it's listed in mutation_in"""
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: LocationWhereInput
-}
-
-input LocationUpdateDataInput {
-  address1: String
-  address2: String
-  address3: String
-  city: String
-  state: String
-  zip_code: String
-  country: String
-  formatted_address: String
-}
-
-input LocationUpdateInput {
-  address1: String
-  address2: String
-  address3: String
-  city: String
-  state: String
-  zip_code: String
-  country: String
-  formatted_address: String
-}
-
-input LocationUpdateManyMutationInput {
-  address1: String
-  address2: String
-  address3: String
-  city: String
-  state: String
-  zip_code: String
-  country: String
-  formatted_address: String
-}
-
-input LocationUpdateOneInput {
-  create: LocationCreateInput
-  connect: LocationWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
-  update: LocationUpdateDataInput
-  upsert: LocationUpsertNestedInput
-}
-
-input LocationUpsertNestedInput {
-  update: LocationUpdateDataInput!
-  create: LocationCreateInput!
-}
-
-input LocationWhereInput {
-  """Logical AND on all given filters."""
-  AND: [LocationWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [LocationWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [LocationWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  address1: String
-
-  """All values that are not equal to given value."""
-  address1_not: String
-
-  """All values that are contained in given list."""
-  address1_in: [String!]
-
-  """All values that are not contained in given list."""
-  address1_not_in: [String!]
-
-  """All values less than the given value."""
-  address1_lt: String
-
-  """All values less than or equal the given value."""
-  address1_lte: String
-
-  """All values greater than the given value."""
-  address1_gt: String
-
-  """All values greater than or equal the given value."""
-  address1_gte: String
-
-  """All values containing the given string."""
-  address1_contains: String
-
-  """All values not containing the given string."""
-  address1_not_contains: String
-
-  """All values starting with the given string."""
-  address1_starts_with: String
-
-  """All values not starting with the given string."""
-  address1_not_starts_with: String
-
-  """All values ending with the given string."""
-  address1_ends_with: String
-
-  """All values not ending with the given string."""
-  address1_not_ends_with: String
-  address2: String
-
-  """All values that are not equal to given value."""
-  address2_not: String
-
-  """All values that are contained in given list."""
-  address2_in: [String!]
-
-  """All values that are not contained in given list."""
-  address2_not_in: [String!]
-
-  """All values less than the given value."""
-  address2_lt: String
-
-  """All values less than or equal the given value."""
-  address2_lte: String
-
-  """All values greater than the given value."""
-  address2_gt: String
-
-  """All values greater than or equal the given value."""
-  address2_gte: String
-
-  """All values containing the given string."""
-  address2_contains: String
-
-  """All values not containing the given string."""
-  address2_not_contains: String
-
-  """All values starting with the given string."""
-  address2_starts_with: String
-
-  """All values not starting with the given string."""
-  address2_not_starts_with: String
-
-  """All values ending with the given string."""
-  address2_ends_with: String
-
-  """All values not ending with the given string."""
-  address2_not_ends_with: String
-  address3: String
-
-  """All values that are not equal to given value."""
-  address3_not: String
-
-  """All values that are contained in given list."""
-  address3_in: [String!]
-
-  """All values that are not contained in given list."""
-  address3_not_in: [String!]
-
-  """All values less than the given value."""
-  address3_lt: String
-
-  """All values less than or equal the given value."""
-  address3_lte: String
-
-  """All values greater than the given value."""
-  address3_gt: String
-
-  """All values greater than or equal the given value."""
-  address3_gte: String
-
-  """All values containing the given string."""
-  address3_contains: String
-
-  """All values not containing the given string."""
-  address3_not_contains: String
-
-  """All values starting with the given string."""
-  address3_starts_with: String
-
-  """All values not starting with the given string."""
-  address3_not_starts_with: String
-
-  """All values ending with the given string."""
-  address3_ends_with: String
-
-  """All values not ending with the given string."""
-  address3_not_ends_with: String
-  city: String
-
-  """All values that are not equal to given value."""
-  city_not: String
-
-  """All values that are contained in given list."""
-  city_in: [String!]
-
-  """All values that are not contained in given list."""
-  city_not_in: [String!]
-
-  """All values less than the given value."""
-  city_lt: String
-
-  """All values less than or equal the given value."""
-  city_lte: String
-
-  """All values greater than the given value."""
-  city_gt: String
-
-  """All values greater than or equal the given value."""
-  city_gte: String
-
-  """All values containing the given string."""
-  city_contains: String
-
-  """All values not containing the given string."""
-  city_not_contains: String
-
-  """All values starting with the given string."""
-  city_starts_with: String
-
-  """All values not starting with the given string."""
-  city_not_starts_with: String
-
-  """All values ending with the given string."""
-  city_ends_with: String
-
-  """All values not ending with the given string."""
-  city_not_ends_with: String
-  state: String
-
-  """All values that are not equal to given value."""
-  state_not: String
-
-  """All values that are contained in given list."""
-  state_in: [String!]
-
-  """All values that are not contained in given list."""
-  state_not_in: [String!]
-
-  """All values less than the given value."""
-  state_lt: String
-
-  """All values less than or equal the given value."""
-  state_lte: String
-
-  """All values greater than the given value."""
-  state_gt: String
-
-  """All values greater than or equal the given value."""
-  state_gte: String
-
-  """All values containing the given string."""
-  state_contains: String
-
-  """All values not containing the given string."""
-  state_not_contains: String
-
-  """All values starting with the given string."""
-  state_starts_with: String
-
-  """All values not starting with the given string."""
-  state_not_starts_with: String
-
-  """All values ending with the given string."""
-  state_ends_with: String
-
-  """All values not ending with the given string."""
-  state_not_ends_with: String
-  zip_code: String
-
-  """All values that are not equal to given value."""
-  zip_code_not: String
-
-  """All values that are contained in given list."""
-  zip_code_in: [String!]
-
-  """All values that are not contained in given list."""
-  zip_code_not_in: [String!]
-
-  """All values less than the given value."""
-  zip_code_lt: String
-
-  """All values less than or equal the given value."""
-  zip_code_lte: String
-
-  """All values greater than the given value."""
-  zip_code_gt: String
-
-  """All values greater than or equal the given value."""
-  zip_code_gte: String
-
-  """All values containing the given string."""
-  zip_code_contains: String
-
-  """All values not containing the given string."""
-  zip_code_not_contains: String
-
-  """All values starting with the given string."""
-  zip_code_starts_with: String
-
-  """All values not starting with the given string."""
-  zip_code_not_starts_with: String
-
-  """All values ending with the given string."""
-  zip_code_ends_with: String
-
-  """All values not ending with the given string."""
-  zip_code_not_ends_with: String
-  country: String
-
-  """All values that are not equal to given value."""
-  country_not: String
-
-  """All values that are contained in given list."""
-  country_in: [String!]
-
-  """All values that are not contained in given list."""
-  country_not_in: [String!]
-
-  """All values less than the given value."""
-  country_lt: String
-
-  """All values less than or equal the given value."""
-  country_lte: String
-
-  """All values greater than the given value."""
-  country_gt: String
-
-  """All values greater than or equal the given value."""
-  country_gte: String
-
-  """All values containing the given string."""
-  country_contains: String
-
-  """All values not containing the given string."""
-  country_not_contains: String
-
-  """All values starting with the given string."""
-  country_starts_with: String
-
-  """All values not starting with the given string."""
-  country_not_starts_with: String
-
-  """All values ending with the given string."""
-  country_ends_with: String
-
-  """All values not ending with the given string."""
-  country_not_ends_with: String
-  formatted_address: String
-
-  """All values that are not equal to given value."""
-  formatted_address_not: String
-
-  """All values that are contained in given list."""
-  formatted_address_in: [String!]
-
-  """All values that are not contained in given list."""
-  formatted_address_not_in: [String!]
-
-  """All values less than the given value."""
-  formatted_address_lt: String
-
-  """All values less than or equal the given value."""
-  formatted_address_lte: String
-
-  """All values greater than the given value."""
-  formatted_address_gt: String
-
-  """All values greater than or equal the given value."""
-  formatted_address_gte: String
-
-  """All values containing the given string."""
-  formatted_address_contains: String
-
-  """All values not containing the given string."""
-  formatted_address_not_contains: String
-
-  """All values starting with the given string."""
-  formatted_address_starts_with: String
-
-  """All values not starting with the given string."""
-  formatted_address_not_starts_with: String
-
-  """All values ending with the given string."""
-  formatted_address_ends_with: String
-
-  """All values not ending with the given string."""
-  formatted_address_not_ends_with: String
-  createdAt: DateTime
-
-  """All values that are not equal to given value."""
-  createdAt_not: DateTime
-
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
-
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-
-  """All values that are not equal to given value."""
-  updatedAt_not: DateTime
-
-  """All values that are contained in given list."""
-  updatedAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  updatedAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  updatedAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  updatedAt_lte: DateTime
-
-  """All values greater than the given value."""
-  updatedAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  updatedAt_gte: DateTime
-}
-
-input LocationWhereUniqueInput {
-  id: ID
-}
-
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
@@ -1640,42 +1044,36 @@ type Mutation {
   createComment(data: CommentCreateInput!): Comment!
   createPlace(data: PlaceCreateInput!): Place!
   createPhoto(data: PhotoCreateInput!): Photo!
-  createLocation(data: LocationCreateInput!): Location!
   createCategory(data: CategoryCreateInput!): Category!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateReview(data: ReviewUpdateInput!, where: ReviewWhereUniqueInput!): Review
   updateComment(data: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment
   updatePlace(data: PlaceUpdateInput!, where: PlaceWhereUniqueInput!): Place
   updatePhoto(data: PhotoUpdateInput!, where: PhotoWhereUniqueInput!): Photo
-  updateLocation(data: LocationUpdateInput!, where: LocationWhereUniqueInput!): Location
   updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category
   deleteUser(where: UserWhereUniqueInput!): User
   deleteReview(where: ReviewWhereUniqueInput!): Review
   deleteComment(where: CommentWhereUniqueInput!): Comment
   deletePlace(where: PlaceWhereUniqueInput!): Place
   deletePhoto(where: PhotoWhereUniqueInput!): Photo
-  deleteLocation(where: LocationWhereUniqueInput!): Location
   deleteCategory(where: CategoryWhereUniqueInput!): Category
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertReview(where: ReviewWhereUniqueInput!, create: ReviewCreateInput!, update: ReviewUpdateInput!): Review!
   upsertComment(where: CommentWhereUniqueInput!, create: CommentCreateInput!, update: CommentUpdateInput!): Comment!
   upsertPlace(where: PlaceWhereUniqueInput!, create: PlaceCreateInput!, update: PlaceUpdateInput!): Place!
   upsertPhoto(where: PhotoWhereUniqueInput!, create: PhotoCreateInput!, update: PhotoUpdateInput!): Photo!
-  upsertLocation(where: LocationWhereUniqueInput!, create: LocationCreateInput!, update: LocationUpdateInput!): Location!
   upsertCategory(where: CategoryWhereUniqueInput!, create: CategoryCreateInput!, update: CategoryUpdateInput!): Category!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyReviews(data: ReviewUpdateManyMutationInput!, where: ReviewWhereInput): BatchPayload!
   updateManyComments(data: CommentUpdateManyMutationInput!, where: CommentWhereInput): BatchPayload!
   updateManyPlaces(data: PlaceUpdateManyMutationInput!, where: PlaceWhereInput): BatchPayload!
   updateManyPhotos(data: PhotoUpdateManyMutationInput!, where: PhotoWhereInput): BatchPayload!
-  updateManyLocations(data: LocationUpdateManyMutationInput!, where: LocationWhereInput): BatchPayload!
   updateManyCategories(data: CategoryUpdateManyMutationInput!, where: CategoryWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyReviews(where: ReviewWhereInput): BatchPayload!
   deleteManyComments(where: CommentWhereInput): BatchPayload!
   deleteManyPlaces(where: PlaceWhereInput): BatchPayload!
   deleteManyPhotos(where: PhotoWhereInput): BatchPayload!
-  deleteManyLocations(where: LocationWhereInput): BatchPayload!
   deleteManyCategories(where: CategoryWhereInput): BatchPayload!
   executeRaw(database: PrismaDatabase, query: String!): Json!
 }
@@ -2180,9 +1578,19 @@ type Place implements Node {
   reviews(where: ReviewWhereInput, orderBy: ReviewOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Review!]
   review_count: Int
   avgRating: Float
-  location: Location
   imageUrl: String
   photos(where: PhotoWhereInput, orderBy: PhotoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Photo!]
+  address1: String
+  address2: String
+  address3: String
+  city: String
+  state: String
+  zip_code: String
+  country: String
+  formatted_address: String
+  lat: Float
+  lng: Float
+  google_place_id: String
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -2205,10 +1613,20 @@ input PlaceCreateInput {
   review_count: Int
   avgRating: Float
   imageUrl: String
+  address1: String
+  address2: String
+  address3: String
+  city: String
+  state: String
+  zip_code: String
+  country: String
+  formatted_address: String
+  lat: Float
+  lng: Float
+  google_place_id: String
   addedBy: UserCreateOneWithoutPlacesInput!
   category: CategoryCreateOneInput
   reviews: ReviewCreateManyWithoutPlaceInput
-  location: LocationCreateOneInput
   photos: PhotoCreateManyWithoutPlaceInput
 }
 
@@ -2235,9 +1653,19 @@ input PlaceCreateWithoutAddedByInput {
   review_count: Int
   avgRating: Float
   imageUrl: String
+  address1: String
+  address2: String
+  address3: String
+  city: String
+  state: String
+  zip_code: String
+  country: String
+  formatted_address: String
+  lat: Float
+  lng: Float
+  google_place_id: String
   category: CategoryCreateOneInput
   reviews: ReviewCreateManyWithoutPlaceInput
-  location: LocationCreateOneInput
   photos: PhotoCreateManyWithoutPlaceInput
 }
 
@@ -2249,10 +1677,20 @@ input PlaceCreateWithoutPhotosInput {
   review_count: Int
   avgRating: Float
   imageUrl: String
+  address1: String
+  address2: String
+  address3: String
+  city: String
+  state: String
+  zip_code: String
+  country: String
+  formatted_address: String
+  lat: Float
+  lng: Float
+  google_place_id: String
   addedBy: UserCreateOneWithoutPlacesInput!
   category: CategoryCreateOneInput
   reviews: ReviewCreateManyWithoutPlaceInput
-  location: LocationCreateOneInput
 }
 
 input PlaceCreateWithoutReviewsInput {
@@ -2263,9 +1701,19 @@ input PlaceCreateWithoutReviewsInput {
   review_count: Int
   avgRating: Float
   imageUrl: String
+  address1: String
+  address2: String
+  address3: String
+  city: String
+  state: String
+  zip_code: String
+  country: String
+  formatted_address: String
+  lat: Float
+  lng: Float
+  google_place_id: String
   addedBy: UserCreateOneWithoutPlacesInput!
   category: CategoryCreateOneInput
-  location: LocationCreateOneInput
   photos: PhotoCreateManyWithoutPlaceInput
 }
 
@@ -2293,6 +1741,28 @@ enum PlaceOrderByInput {
   avgRating_DESC
   imageUrl_ASC
   imageUrl_DESC
+  address1_ASC
+  address1_DESC
+  address2_ASC
+  address2_DESC
+  address3_ASC
+  address3_DESC
+  city_ASC
+  city_DESC
+  state_ASC
+  state_DESC
+  zip_code_ASC
+  zip_code_DESC
+  country_ASC
+  country_DESC
+  formatted_address_ASC
+  formatted_address_DESC
+  lat_ASC
+  lat_DESC
+  lng_ASC
+  lng_DESC
+  google_place_id_ASC
+  google_place_id_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -2307,6 +1777,17 @@ type PlacePreviousValues {
   review_count: Int
   avgRating: Float
   imageUrl: String
+  address1: String
+  address2: String
+  address3: String
+  city: String
+  state: String
+  zip_code: String
+  country: String
+  formatted_address: String
+  lat: Float
+  lng: Float
+  google_place_id: String
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -2564,6 +2045,410 @@ input PlaceScalarWhereInput {
 
   """All values not ending with the given string."""
   imageUrl_not_ends_with: String
+  address1: String
+
+  """All values that are not equal to given value."""
+  address1_not: String
+
+  """All values that are contained in given list."""
+  address1_in: [String!]
+
+  """All values that are not contained in given list."""
+  address1_not_in: [String!]
+
+  """All values less than the given value."""
+  address1_lt: String
+
+  """All values less than or equal the given value."""
+  address1_lte: String
+
+  """All values greater than the given value."""
+  address1_gt: String
+
+  """All values greater than or equal the given value."""
+  address1_gte: String
+
+  """All values containing the given string."""
+  address1_contains: String
+
+  """All values not containing the given string."""
+  address1_not_contains: String
+
+  """All values starting with the given string."""
+  address1_starts_with: String
+
+  """All values not starting with the given string."""
+  address1_not_starts_with: String
+
+  """All values ending with the given string."""
+  address1_ends_with: String
+
+  """All values not ending with the given string."""
+  address1_not_ends_with: String
+  address2: String
+
+  """All values that are not equal to given value."""
+  address2_not: String
+
+  """All values that are contained in given list."""
+  address2_in: [String!]
+
+  """All values that are not contained in given list."""
+  address2_not_in: [String!]
+
+  """All values less than the given value."""
+  address2_lt: String
+
+  """All values less than or equal the given value."""
+  address2_lte: String
+
+  """All values greater than the given value."""
+  address2_gt: String
+
+  """All values greater than or equal the given value."""
+  address2_gte: String
+
+  """All values containing the given string."""
+  address2_contains: String
+
+  """All values not containing the given string."""
+  address2_not_contains: String
+
+  """All values starting with the given string."""
+  address2_starts_with: String
+
+  """All values not starting with the given string."""
+  address2_not_starts_with: String
+
+  """All values ending with the given string."""
+  address2_ends_with: String
+
+  """All values not ending with the given string."""
+  address2_not_ends_with: String
+  address3: String
+
+  """All values that are not equal to given value."""
+  address3_not: String
+
+  """All values that are contained in given list."""
+  address3_in: [String!]
+
+  """All values that are not contained in given list."""
+  address3_not_in: [String!]
+
+  """All values less than the given value."""
+  address3_lt: String
+
+  """All values less than or equal the given value."""
+  address3_lte: String
+
+  """All values greater than the given value."""
+  address3_gt: String
+
+  """All values greater than or equal the given value."""
+  address3_gte: String
+
+  """All values containing the given string."""
+  address3_contains: String
+
+  """All values not containing the given string."""
+  address3_not_contains: String
+
+  """All values starting with the given string."""
+  address3_starts_with: String
+
+  """All values not starting with the given string."""
+  address3_not_starts_with: String
+
+  """All values ending with the given string."""
+  address3_ends_with: String
+
+  """All values not ending with the given string."""
+  address3_not_ends_with: String
+  city: String
+
+  """All values that are not equal to given value."""
+  city_not: String
+
+  """All values that are contained in given list."""
+  city_in: [String!]
+
+  """All values that are not contained in given list."""
+  city_not_in: [String!]
+
+  """All values less than the given value."""
+  city_lt: String
+
+  """All values less than or equal the given value."""
+  city_lte: String
+
+  """All values greater than the given value."""
+  city_gt: String
+
+  """All values greater than or equal the given value."""
+  city_gte: String
+
+  """All values containing the given string."""
+  city_contains: String
+
+  """All values not containing the given string."""
+  city_not_contains: String
+
+  """All values starting with the given string."""
+  city_starts_with: String
+
+  """All values not starting with the given string."""
+  city_not_starts_with: String
+
+  """All values ending with the given string."""
+  city_ends_with: String
+
+  """All values not ending with the given string."""
+  city_not_ends_with: String
+  state: String
+
+  """All values that are not equal to given value."""
+  state_not: String
+
+  """All values that are contained in given list."""
+  state_in: [String!]
+
+  """All values that are not contained in given list."""
+  state_not_in: [String!]
+
+  """All values less than the given value."""
+  state_lt: String
+
+  """All values less than or equal the given value."""
+  state_lte: String
+
+  """All values greater than the given value."""
+  state_gt: String
+
+  """All values greater than or equal the given value."""
+  state_gte: String
+
+  """All values containing the given string."""
+  state_contains: String
+
+  """All values not containing the given string."""
+  state_not_contains: String
+
+  """All values starting with the given string."""
+  state_starts_with: String
+
+  """All values not starting with the given string."""
+  state_not_starts_with: String
+
+  """All values ending with the given string."""
+  state_ends_with: String
+
+  """All values not ending with the given string."""
+  state_not_ends_with: String
+  zip_code: String
+
+  """All values that are not equal to given value."""
+  zip_code_not: String
+
+  """All values that are contained in given list."""
+  zip_code_in: [String!]
+
+  """All values that are not contained in given list."""
+  zip_code_not_in: [String!]
+
+  """All values less than the given value."""
+  zip_code_lt: String
+
+  """All values less than or equal the given value."""
+  zip_code_lte: String
+
+  """All values greater than the given value."""
+  zip_code_gt: String
+
+  """All values greater than or equal the given value."""
+  zip_code_gte: String
+
+  """All values containing the given string."""
+  zip_code_contains: String
+
+  """All values not containing the given string."""
+  zip_code_not_contains: String
+
+  """All values starting with the given string."""
+  zip_code_starts_with: String
+
+  """All values not starting with the given string."""
+  zip_code_not_starts_with: String
+
+  """All values ending with the given string."""
+  zip_code_ends_with: String
+
+  """All values not ending with the given string."""
+  zip_code_not_ends_with: String
+  country: String
+
+  """All values that are not equal to given value."""
+  country_not: String
+
+  """All values that are contained in given list."""
+  country_in: [String!]
+
+  """All values that are not contained in given list."""
+  country_not_in: [String!]
+
+  """All values less than the given value."""
+  country_lt: String
+
+  """All values less than or equal the given value."""
+  country_lte: String
+
+  """All values greater than the given value."""
+  country_gt: String
+
+  """All values greater than or equal the given value."""
+  country_gte: String
+
+  """All values containing the given string."""
+  country_contains: String
+
+  """All values not containing the given string."""
+  country_not_contains: String
+
+  """All values starting with the given string."""
+  country_starts_with: String
+
+  """All values not starting with the given string."""
+  country_not_starts_with: String
+
+  """All values ending with the given string."""
+  country_ends_with: String
+
+  """All values not ending with the given string."""
+  country_not_ends_with: String
+  formatted_address: String
+
+  """All values that are not equal to given value."""
+  formatted_address_not: String
+
+  """All values that are contained in given list."""
+  formatted_address_in: [String!]
+
+  """All values that are not contained in given list."""
+  formatted_address_not_in: [String!]
+
+  """All values less than the given value."""
+  formatted_address_lt: String
+
+  """All values less than or equal the given value."""
+  formatted_address_lte: String
+
+  """All values greater than the given value."""
+  formatted_address_gt: String
+
+  """All values greater than or equal the given value."""
+  formatted_address_gte: String
+
+  """All values containing the given string."""
+  formatted_address_contains: String
+
+  """All values not containing the given string."""
+  formatted_address_not_contains: String
+
+  """All values starting with the given string."""
+  formatted_address_starts_with: String
+
+  """All values not starting with the given string."""
+  formatted_address_not_starts_with: String
+
+  """All values ending with the given string."""
+  formatted_address_ends_with: String
+
+  """All values not ending with the given string."""
+  formatted_address_not_ends_with: String
+  lat: Float
+
+  """All values that are not equal to given value."""
+  lat_not: Float
+
+  """All values that are contained in given list."""
+  lat_in: [Float!]
+
+  """All values that are not contained in given list."""
+  lat_not_in: [Float!]
+
+  """All values less than the given value."""
+  lat_lt: Float
+
+  """All values less than or equal the given value."""
+  lat_lte: Float
+
+  """All values greater than the given value."""
+  lat_gt: Float
+
+  """All values greater than or equal the given value."""
+  lat_gte: Float
+  lng: Float
+
+  """All values that are not equal to given value."""
+  lng_not: Float
+
+  """All values that are contained in given list."""
+  lng_in: [Float!]
+
+  """All values that are not contained in given list."""
+  lng_not_in: [Float!]
+
+  """All values less than the given value."""
+  lng_lt: Float
+
+  """All values less than or equal the given value."""
+  lng_lte: Float
+
+  """All values greater than the given value."""
+  lng_gt: Float
+
+  """All values greater than or equal the given value."""
+  lng_gte: Float
+  google_place_id: String
+
+  """All values that are not equal to given value."""
+  google_place_id_not: String
+
+  """All values that are contained in given list."""
+  google_place_id_in: [String!]
+
+  """All values that are not contained in given list."""
+  google_place_id_not_in: [String!]
+
+  """All values less than the given value."""
+  google_place_id_lt: String
+
+  """All values less than or equal the given value."""
+  google_place_id_lte: String
+
+  """All values greater than the given value."""
+  google_place_id_gt: String
+
+  """All values greater than or equal the given value."""
+  google_place_id_gte: String
+
+  """All values containing the given string."""
+  google_place_id_contains: String
+
+  """All values not containing the given string."""
+  google_place_id_not_contains: String
+
+  """All values starting with the given string."""
+  google_place_id_starts_with: String
+
+  """All values not starting with the given string."""
+  google_place_id_not_starts_with: String
+
+  """All values ending with the given string."""
+  google_place_id_ends_with: String
+
+  """All values not ending with the given string."""
+  google_place_id_not_ends_with: String
   createdAt: DateTime
 
   """All values that are not equal to given value."""
@@ -2654,10 +2539,20 @@ input PlaceUpdateInput {
   review_count: Int
   avgRating: Float
   imageUrl: String
+  address1: String
+  address2: String
+  address3: String
+  city: String
+  state: String
+  zip_code: String
+  country: String
+  formatted_address: String
+  lat: Float
+  lng: Float
+  google_place_id: String
   addedBy: UserUpdateOneRequiredWithoutPlacesInput
   category: CategoryUpdateOneInput
   reviews: ReviewUpdateManyWithoutPlaceInput
-  location: LocationUpdateOneInput
   photos: PhotoUpdateManyWithoutPlaceInput
 }
 
@@ -2668,6 +2563,17 @@ input PlaceUpdateManyDataInput {
   review_count: Int
   avgRating: Float
   imageUrl: String
+  address1: String
+  address2: String
+  address3: String
+  city: String
+  state: String
+  zip_code: String
+  country: String
+  formatted_address: String
+  lat: Float
+  lng: Float
+  google_place_id: String
 }
 
 input PlaceUpdateManyMutationInput {
@@ -2677,6 +2583,17 @@ input PlaceUpdateManyMutationInput {
   review_count: Int
   avgRating: Float
   imageUrl: String
+  address1: String
+  address2: String
+  address3: String
+  city: String
+  state: String
+  zip_code: String
+  country: String
+  formatted_address: String
+  lat: Float
+  lng: Float
+  google_place_id: String
 }
 
 input PlaceUpdateManyWithoutAddedByInput {
@@ -2717,9 +2634,19 @@ input PlaceUpdateWithoutAddedByDataInput {
   review_count: Int
   avgRating: Float
   imageUrl: String
+  address1: String
+  address2: String
+  address3: String
+  city: String
+  state: String
+  zip_code: String
+  country: String
+  formatted_address: String
+  lat: Float
+  lng: Float
+  google_place_id: String
   category: CategoryUpdateOneInput
   reviews: ReviewUpdateManyWithoutPlaceInput
-  location: LocationUpdateOneInput
   photos: PhotoUpdateManyWithoutPlaceInput
 }
 
@@ -2730,10 +2657,20 @@ input PlaceUpdateWithoutPhotosDataInput {
   review_count: Int
   avgRating: Float
   imageUrl: String
+  address1: String
+  address2: String
+  address3: String
+  city: String
+  state: String
+  zip_code: String
+  country: String
+  formatted_address: String
+  lat: Float
+  lng: Float
+  google_place_id: String
   addedBy: UserUpdateOneRequiredWithoutPlacesInput
   category: CategoryUpdateOneInput
   reviews: ReviewUpdateManyWithoutPlaceInput
-  location: LocationUpdateOneInput
 }
 
 input PlaceUpdateWithoutReviewsDataInput {
@@ -2743,9 +2680,19 @@ input PlaceUpdateWithoutReviewsDataInput {
   review_count: Int
   avgRating: Float
   imageUrl: String
+  address1: String
+  address2: String
+  address3: String
+  city: String
+  state: String
+  zip_code: String
+  country: String
+  formatted_address: String
+  lat: Float
+  lng: Float
+  google_place_id: String
   addedBy: UserUpdateOneRequiredWithoutPlacesInput
   category: CategoryUpdateOneInput
-  location: LocationUpdateOneInput
   photos: PhotoUpdateManyWithoutPlaceInput
 }
 
@@ -3023,6 +2970,410 @@ input PlaceWhereInput {
 
   """All values not ending with the given string."""
   imageUrl_not_ends_with: String
+  address1: String
+
+  """All values that are not equal to given value."""
+  address1_not: String
+
+  """All values that are contained in given list."""
+  address1_in: [String!]
+
+  """All values that are not contained in given list."""
+  address1_not_in: [String!]
+
+  """All values less than the given value."""
+  address1_lt: String
+
+  """All values less than or equal the given value."""
+  address1_lte: String
+
+  """All values greater than the given value."""
+  address1_gt: String
+
+  """All values greater than or equal the given value."""
+  address1_gte: String
+
+  """All values containing the given string."""
+  address1_contains: String
+
+  """All values not containing the given string."""
+  address1_not_contains: String
+
+  """All values starting with the given string."""
+  address1_starts_with: String
+
+  """All values not starting with the given string."""
+  address1_not_starts_with: String
+
+  """All values ending with the given string."""
+  address1_ends_with: String
+
+  """All values not ending with the given string."""
+  address1_not_ends_with: String
+  address2: String
+
+  """All values that are not equal to given value."""
+  address2_not: String
+
+  """All values that are contained in given list."""
+  address2_in: [String!]
+
+  """All values that are not contained in given list."""
+  address2_not_in: [String!]
+
+  """All values less than the given value."""
+  address2_lt: String
+
+  """All values less than or equal the given value."""
+  address2_lte: String
+
+  """All values greater than the given value."""
+  address2_gt: String
+
+  """All values greater than or equal the given value."""
+  address2_gte: String
+
+  """All values containing the given string."""
+  address2_contains: String
+
+  """All values not containing the given string."""
+  address2_not_contains: String
+
+  """All values starting with the given string."""
+  address2_starts_with: String
+
+  """All values not starting with the given string."""
+  address2_not_starts_with: String
+
+  """All values ending with the given string."""
+  address2_ends_with: String
+
+  """All values not ending with the given string."""
+  address2_not_ends_with: String
+  address3: String
+
+  """All values that are not equal to given value."""
+  address3_not: String
+
+  """All values that are contained in given list."""
+  address3_in: [String!]
+
+  """All values that are not contained in given list."""
+  address3_not_in: [String!]
+
+  """All values less than the given value."""
+  address3_lt: String
+
+  """All values less than or equal the given value."""
+  address3_lte: String
+
+  """All values greater than the given value."""
+  address3_gt: String
+
+  """All values greater than or equal the given value."""
+  address3_gte: String
+
+  """All values containing the given string."""
+  address3_contains: String
+
+  """All values not containing the given string."""
+  address3_not_contains: String
+
+  """All values starting with the given string."""
+  address3_starts_with: String
+
+  """All values not starting with the given string."""
+  address3_not_starts_with: String
+
+  """All values ending with the given string."""
+  address3_ends_with: String
+
+  """All values not ending with the given string."""
+  address3_not_ends_with: String
+  city: String
+
+  """All values that are not equal to given value."""
+  city_not: String
+
+  """All values that are contained in given list."""
+  city_in: [String!]
+
+  """All values that are not contained in given list."""
+  city_not_in: [String!]
+
+  """All values less than the given value."""
+  city_lt: String
+
+  """All values less than or equal the given value."""
+  city_lte: String
+
+  """All values greater than the given value."""
+  city_gt: String
+
+  """All values greater than or equal the given value."""
+  city_gte: String
+
+  """All values containing the given string."""
+  city_contains: String
+
+  """All values not containing the given string."""
+  city_not_contains: String
+
+  """All values starting with the given string."""
+  city_starts_with: String
+
+  """All values not starting with the given string."""
+  city_not_starts_with: String
+
+  """All values ending with the given string."""
+  city_ends_with: String
+
+  """All values not ending with the given string."""
+  city_not_ends_with: String
+  state: String
+
+  """All values that are not equal to given value."""
+  state_not: String
+
+  """All values that are contained in given list."""
+  state_in: [String!]
+
+  """All values that are not contained in given list."""
+  state_not_in: [String!]
+
+  """All values less than the given value."""
+  state_lt: String
+
+  """All values less than or equal the given value."""
+  state_lte: String
+
+  """All values greater than the given value."""
+  state_gt: String
+
+  """All values greater than or equal the given value."""
+  state_gte: String
+
+  """All values containing the given string."""
+  state_contains: String
+
+  """All values not containing the given string."""
+  state_not_contains: String
+
+  """All values starting with the given string."""
+  state_starts_with: String
+
+  """All values not starting with the given string."""
+  state_not_starts_with: String
+
+  """All values ending with the given string."""
+  state_ends_with: String
+
+  """All values not ending with the given string."""
+  state_not_ends_with: String
+  zip_code: String
+
+  """All values that are not equal to given value."""
+  zip_code_not: String
+
+  """All values that are contained in given list."""
+  zip_code_in: [String!]
+
+  """All values that are not contained in given list."""
+  zip_code_not_in: [String!]
+
+  """All values less than the given value."""
+  zip_code_lt: String
+
+  """All values less than or equal the given value."""
+  zip_code_lte: String
+
+  """All values greater than the given value."""
+  zip_code_gt: String
+
+  """All values greater than or equal the given value."""
+  zip_code_gte: String
+
+  """All values containing the given string."""
+  zip_code_contains: String
+
+  """All values not containing the given string."""
+  zip_code_not_contains: String
+
+  """All values starting with the given string."""
+  zip_code_starts_with: String
+
+  """All values not starting with the given string."""
+  zip_code_not_starts_with: String
+
+  """All values ending with the given string."""
+  zip_code_ends_with: String
+
+  """All values not ending with the given string."""
+  zip_code_not_ends_with: String
+  country: String
+
+  """All values that are not equal to given value."""
+  country_not: String
+
+  """All values that are contained in given list."""
+  country_in: [String!]
+
+  """All values that are not contained in given list."""
+  country_not_in: [String!]
+
+  """All values less than the given value."""
+  country_lt: String
+
+  """All values less than or equal the given value."""
+  country_lte: String
+
+  """All values greater than the given value."""
+  country_gt: String
+
+  """All values greater than or equal the given value."""
+  country_gte: String
+
+  """All values containing the given string."""
+  country_contains: String
+
+  """All values not containing the given string."""
+  country_not_contains: String
+
+  """All values starting with the given string."""
+  country_starts_with: String
+
+  """All values not starting with the given string."""
+  country_not_starts_with: String
+
+  """All values ending with the given string."""
+  country_ends_with: String
+
+  """All values not ending with the given string."""
+  country_not_ends_with: String
+  formatted_address: String
+
+  """All values that are not equal to given value."""
+  formatted_address_not: String
+
+  """All values that are contained in given list."""
+  formatted_address_in: [String!]
+
+  """All values that are not contained in given list."""
+  formatted_address_not_in: [String!]
+
+  """All values less than the given value."""
+  formatted_address_lt: String
+
+  """All values less than or equal the given value."""
+  formatted_address_lte: String
+
+  """All values greater than the given value."""
+  formatted_address_gt: String
+
+  """All values greater than or equal the given value."""
+  formatted_address_gte: String
+
+  """All values containing the given string."""
+  formatted_address_contains: String
+
+  """All values not containing the given string."""
+  formatted_address_not_contains: String
+
+  """All values starting with the given string."""
+  formatted_address_starts_with: String
+
+  """All values not starting with the given string."""
+  formatted_address_not_starts_with: String
+
+  """All values ending with the given string."""
+  formatted_address_ends_with: String
+
+  """All values not ending with the given string."""
+  formatted_address_not_ends_with: String
+  lat: Float
+
+  """All values that are not equal to given value."""
+  lat_not: Float
+
+  """All values that are contained in given list."""
+  lat_in: [Float!]
+
+  """All values that are not contained in given list."""
+  lat_not_in: [Float!]
+
+  """All values less than the given value."""
+  lat_lt: Float
+
+  """All values less than or equal the given value."""
+  lat_lte: Float
+
+  """All values greater than the given value."""
+  lat_gt: Float
+
+  """All values greater than or equal the given value."""
+  lat_gte: Float
+  lng: Float
+
+  """All values that are not equal to given value."""
+  lng_not: Float
+
+  """All values that are contained in given list."""
+  lng_in: [Float!]
+
+  """All values that are not contained in given list."""
+  lng_not_in: [Float!]
+
+  """All values less than the given value."""
+  lng_lt: Float
+
+  """All values less than or equal the given value."""
+  lng_lte: Float
+
+  """All values greater than the given value."""
+  lng_gt: Float
+
+  """All values greater than or equal the given value."""
+  lng_gte: Float
+  google_place_id: String
+
+  """All values that are not equal to given value."""
+  google_place_id_not: String
+
+  """All values that are contained in given list."""
+  google_place_id_in: [String!]
+
+  """All values that are not contained in given list."""
+  google_place_id_not_in: [String!]
+
+  """All values less than the given value."""
+  google_place_id_lt: String
+
+  """All values less than or equal the given value."""
+  google_place_id_lte: String
+
+  """All values greater than the given value."""
+  google_place_id_gt: String
+
+  """All values greater than or equal the given value."""
+  google_place_id_gte: String
+
+  """All values containing the given string."""
+  google_place_id_contains: String
+
+  """All values not containing the given string."""
+  google_place_id_not_contains: String
+
+  """All values starting with the given string."""
+  google_place_id_starts_with: String
+
+  """All values not starting with the given string."""
+  google_place_id_not_starts_with: String
+
+  """All values ending with the given string."""
+  google_place_id_ends_with: String
+
+  """All values not ending with the given string."""
+  google_place_id_not_ends_with: String
   createdAt: DateTime
 
   """All values that are not equal to given value."""
@@ -3072,7 +3423,6 @@ input PlaceWhereInput {
   reviews_every: ReviewWhereInput
   reviews_some: ReviewWhereInput
   reviews_none: ReviewWhereInput
-  location: LocationWhereInput
   photos_every: PhotoWhereInput
   photos_some: PhotoWhereInput
   photos_none: PhotoWhereInput
@@ -3093,21 +3443,18 @@ type Query {
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment]!
   places(where: PlaceWhereInput, orderBy: PlaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Place]!
   photos(where: PhotoWhereInput, orderBy: PhotoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Photo]!
-  locations(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Location]!
   categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category]!
   user(where: UserWhereUniqueInput!): User
   review(where: ReviewWhereUniqueInput!): Review
   comment(where: CommentWhereUniqueInput!): Comment
   place(where: PlaceWhereUniqueInput!): Place
   photo(where: PhotoWhereUniqueInput!): Photo
-  location(where: LocationWhereUniqueInput!): Location
   category(where: CategoryWhereUniqueInput!): Category
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   reviewsConnection(where: ReviewWhereInput, orderBy: ReviewOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ReviewConnection!
   commentsConnection(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CommentConnection!
   placesConnection(where: PlaceWhereInput, orderBy: PlaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PlaceConnection!
   photosConnection(where: PhotoWhereInput, orderBy: PhotoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PhotoConnection!
-  locationsConnection(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocationConnection!
   categoriesConnection(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CategoryConnection!
 
   """Fetches an object given its ID"""
@@ -3778,7 +4125,6 @@ type Subscription {
   comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
   place(where: PlaceSubscriptionWhereInput): PlaceSubscriptionPayload
   photo(where: PhotoSubscriptionWhereInput): PhotoSubscriptionPayload
-  location(where: LocationSubscriptionWhereInput): LocationSubscriptionPayload
   category(where: CategorySubscriptionWhereInput): CategorySubscriptionPayload
 }
 

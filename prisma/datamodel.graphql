@@ -53,15 +53,8 @@ type Place {
   reviews: [Review] @relation(name: "ReviewToPlace", onDelete: CASCADE)
   review_count: Int
   avgRating: Float
-  location: Location
   imageUrl: String
   photos: [Photo] @relation(name: "PhotoToPlace", onDelete: CASCADE)
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-}
-
-type Location {
-  id: ID! @id
   address1: String
   address2: String
   address3: String
@@ -70,6 +63,9 @@ type Location {
   zip_code: String
   country: String
   formatted_address: String
+  lat: Float
+  lng: Float
+  google_place_id: String
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }

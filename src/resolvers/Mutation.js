@@ -241,6 +241,33 @@ const Mutation = {
       }
     }, info)
   },
+
+  createPlace(parent, { data }, { prisma, request }, info) {
+    // const userId = getUserId(request)
+
+    return prisma.mutation.createPlace({
+      data: {
+        name: data.name,
+        addedBy: {
+          connect: {
+            // temporarily hardcoded until we implement auth
+            id: "ckb13jalz009f07785le7nni2"
+          },
+        },
+        // is not required for now. correct when we implement category arrays
+        category: {
+          connect: {
+            id: data.categoryId
+          },
+        },
+        imageUrl: data.imageUrl,
+        lat: data.lat,
+        lng: data.lng,
+        phone: data.phone,
+        url: data.url
+      }
+    }, info)
+  },
 }
 
 export default Mutation

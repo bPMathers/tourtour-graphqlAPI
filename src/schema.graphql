@@ -31,7 +31,6 @@ type Query {
   categories: [Category!]
   places(query: String): [Place!]
   photos(query: String): [Photo]
-  locations: [Location!]
 }
 
 type Mutation {
@@ -47,6 +46,7 @@ type Mutation {
   updateComment(id: ID!, data: UpdateCommentInput): Comment!
   createCategory(data: CreateCategoryInput): Category!
   createPhoto(data: CreatePhotoInput!): Photo!
+  createPlace(data: CreatePlaceInput): Place!
 }
 
 type Subscription {
@@ -107,6 +107,25 @@ input CreatePhotoInput {
   placeId: String!
 }
 
+input CreatePlaceInput {
+  name: String! 
+  url: String
+  phone: String
+  categoryId: String
+  imageUrl: String
+  address1: String
+  address2: String
+  address3: String
+  city: String
+  state: String
+  zip_code: String
+  country: String
+  formatted_address: String
+  lat: Float
+  lng: Float
+  google_place_id: String
+}
+
 type User {
   id: ID!
   name: String!
@@ -153,7 +172,7 @@ type Category {
 }
 
 type Place {
-  id: ID!
+  id: ID! 
   name: String! 
   addedBy: User!
   url: String
@@ -162,15 +181,8 @@ type Place {
   reviews: [Review] 
   review_count: Int
   avgRating: Float
-  location: Location
   imageUrl: String
   photos: [Photo] 
-  createdAt: DateTime! 
-  updatedAt: DateTime! 
-}
-
-type Location {
-  id: ID! 
   address1: String
   address2: String
   address3: String
@@ -179,6 +191,9 @@ type Location {
   zip_code: String
   country: String
   formatted_address: String
+  lat: Float
+  lng: Float
+  google_place_id: String
   createdAt: DateTime! 
   updatedAt: DateTime! 
 }
