@@ -230,7 +230,7 @@ const Mutation = {
         url: args.data.url,
         addedBy: {
           connect: {
-            id: "ckay6pdbc009u0778w2bb7lb5"
+            id: "ckb13jalz009f07785le7nni2"
           },
         },
         place: {
@@ -264,7 +264,9 @@ const Mutation = {
         lat: data.lat,
         lng: data.lng,
         phone: data.phone,
-        url: data.url
+        url: data.url,
+        formatted_address: data.formatted_address,
+        google_place_id: data.google_place_id
       }
     }, info)
   },
