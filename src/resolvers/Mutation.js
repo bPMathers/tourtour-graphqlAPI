@@ -79,50 +79,38 @@ const Mutation = {
   },
 
   createReview(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request)
+    // const userId = getUserId(request)
 
+    // // Update Review count for place
+    // const existingReviewsForPlace = await.prisma.mutation.updatePlace({
+    //   where: {
+    //     place: {
+    //       id: args.placeId
+    //     }
+    //   }
+    //   /// etc
+    // })
 
     return prisma.mutation.createReview({
       data: {
+        rating: args.data.rating,
         title: args.data.title,
         body: args.data.body,
-        published: args.data.published,
         author: {
           connect: {
-            id: userId
+            // hardcoded until we take care of auth
+            id: "ckb13jalz009f07785le7nni2"
+          }
+        },
+        place: {
+          connect: {
+            id: args.data.placeId
           }
         }
       }
     }, info)
   },
-
   async updateReview(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request)
-    const reviewExistsAndIsByAuthorizedUser = await prisma.exists.Review({
-      id: args.id,
-      author: {
-        id: userId
-      }
-    })
-
-    const isPublished = await prisma.exists.Review({
-      id: args.id,
-      published: true
-    })
-
-    if (!reviewExistsAndIsByAuthorizedUser) {
-      throw new Error('Unable to update review')
-    }
-
-    if (isPublished && args.data.published === false) {
-      await prisma.mutation.deleteManyComments({
-        where: {
-          review: {
-            id: args.id
-          }
-        }
-      })
-    }
 
     return prisma.mutation.updateReview({
       data: args.data,
@@ -130,7 +118,6 @@ const Mutation = {
         id: args.id
       }
     }, info)
-
   },
 
   async deleteReview(parent, args, { prisma, request }, info) {
@@ -265,8 +252,10 @@ const Mutation = {
         lng: data.lng,
         phone: data.phone,
         url: data.url,
-        formatted_address: data.formatted_address,
-        google_place_id: data.google_place_id
+        formatted_address: data.formatted_address ?? "Adresse non définie",
+        google_place_id: data.google_place_id,
+        avgRating: 0,
+        review_count: 0
       }
     }, info)
   },

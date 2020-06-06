@@ -179,6 +179,21 @@ const Query = {
     return prisma.query.places(opArgs, info);
   },
 
+  place(parent, args, { prisma }, info) {
+    const opArgs = {
+      // first: args.first,
+      // skip: args.skip,
+      // after: args.after,
+      // orderBy: args.orderBy
+    };
+
+    return prisma.query.place({
+      where: {
+        id: args.query
+      }
+    }, info)
+  },
+
   photos(parent, args, { prisma }, info) {
     const opArgs = {
       // first: args.first,
