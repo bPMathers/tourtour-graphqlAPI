@@ -15,7 +15,7 @@ type User {
 
 type Review {
   id: ID! @id
-  rating: Int!
+  rating: Float!
   title: String!
   body: String!
   author: User! @relation(name: "ReviewToUser", onDelete: SET_NULL)

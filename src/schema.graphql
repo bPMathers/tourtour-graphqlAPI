@@ -79,7 +79,7 @@ input UpdateUserInput {
 
 input CreateReviewInput {
   placeId: String!
-  rating: Int!
+  rating: Float!
   title: String!
   body: String!
 }
@@ -92,7 +92,7 @@ input CreateCategoryInput {
 input UpdateReviewInput {
   title: String!
   body: String!
-  rating: Int!
+  rating: Float!
 }
 
 input CreateCommentInput {
@@ -148,7 +148,7 @@ type Review {
   title: String!
   body: String!
   author: User!
-  rating: Int!
+  rating: Float!
   place: Place!
   comments: [Comment!]!
   updatedAt: String!

@@ -1,5 +1,5 @@
 # source: http://localhost:4466/tourtour/dev
-# timestamp: Thu Jun 04 2020 15:02:04 GMT-0400 (Eastern Daylight Time)
+# timestamp: Sat Jun 06 2020 01:20:54 GMT-0400 (Eastern Daylight Time)
 
 type AggregateCategory {
   count: Int!
@@ -3466,7 +3466,7 @@ type Query {
 
 type Review implements Node {
   id: ID!
-  rating: Int!
+  rating: Float!
   title: String!
   body: String!
   author: User!
@@ -3488,7 +3488,7 @@ type ReviewConnection {
 
 input ReviewCreateInput {
   id: ID
-  rating: Int!
+  rating: Float!
   title: String!
   body: String!
   author: UserCreateOneWithoutReviewsInput!
@@ -3513,7 +3513,7 @@ input ReviewCreateOneWithoutCommentsInput {
 
 input ReviewCreateWithoutAuthorInput {
   id: ID
-  rating: Int!
+  rating: Float!
   title: String!
   body: String!
   comments: CommentCreateManyWithoutReviewInput
@@ -3522,7 +3522,7 @@ input ReviewCreateWithoutAuthorInput {
 
 input ReviewCreateWithoutCommentsInput {
   id: ID
-  rating: Int!
+  rating: Float!
   title: String!
   body: String!
   author: UserCreateOneWithoutReviewsInput!
@@ -3531,7 +3531,7 @@ input ReviewCreateWithoutCommentsInput {
 
 input ReviewCreateWithoutPlaceInput {
   id: ID
-  rating: Int!
+  rating: Float!
   title: String!
   body: String!
   author: UserCreateOneWithoutReviewsInput!
@@ -3564,7 +3564,7 @@ enum ReviewOrderByInput {
 
 type ReviewPreviousValues {
   id: ID!
-  rating: Int!
+  rating: Float!
   title: String!
   body: String!
   createdAt: DateTime!
@@ -3620,28 +3620,28 @@ input ReviewScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  rating: Int
+  rating: Float
 
   """All values that are not equal to given value."""
-  rating_not: Int
+  rating_not: Float
 
   """All values that are contained in given list."""
-  rating_in: [Int!]
+  rating_in: [Float!]
 
   """All values that are not contained in given list."""
-  rating_not_in: [Int!]
+  rating_not_in: [Float!]
 
   """All values less than the given value."""
-  rating_lt: Int
+  rating_lt: Float
 
   """All values less than or equal the given value."""
-  rating_lte: Int
+  rating_lte: Float
 
   """All values greater than the given value."""
-  rating_gt: Int
+  rating_gt: Float
 
   """All values greater than or equal the given value."""
-  rating_gte: Int
+  rating_gte: Float
   title: String
 
   """All values that are not equal to given value."""
@@ -3806,7 +3806,7 @@ input ReviewSubscriptionWhereInput {
 }
 
 input ReviewUpdateInput {
-  rating: Int
+  rating: Float
   title: String
   body: String
   author: UserUpdateOneRequiredWithoutReviewsInput
@@ -3815,13 +3815,13 @@ input ReviewUpdateInput {
 }
 
 input ReviewUpdateManyDataInput {
-  rating: Int
+  rating: Float
   title: String
   body: String
 }
 
 input ReviewUpdateManyMutationInput {
-  rating: Int
+  rating: Float
   title: String
   body: String
 }
@@ -3863,7 +3863,7 @@ input ReviewUpdateOneRequiredWithoutCommentsInput {
 }
 
 input ReviewUpdateWithoutAuthorDataInput {
-  rating: Int
+  rating: Float
   title: String
   body: String
   comments: CommentUpdateManyWithoutReviewInput
@@ -3871,7 +3871,7 @@ input ReviewUpdateWithoutAuthorDataInput {
 }
 
 input ReviewUpdateWithoutCommentsDataInput {
-  rating: Int
+  rating: Float
   title: String
   body: String
   author: UserUpdateOneRequiredWithoutReviewsInput
@@ -3879,7 +3879,7 @@ input ReviewUpdateWithoutCommentsDataInput {
 }
 
 input ReviewUpdateWithoutPlaceDataInput {
-  rating: Int
+  rating: Float
   title: String
   body: String
   author: UserUpdateOneRequiredWithoutReviewsInput
@@ -3962,28 +3962,28 @@ input ReviewWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  rating: Int
+  rating: Float
 
   """All values that are not equal to given value."""
-  rating_not: Int
+  rating_not: Float
 
   """All values that are contained in given list."""
-  rating_in: [Int!]
+  rating_in: [Float!]
 
   """All values that are not contained in given list."""
-  rating_not_in: [Int!]
+  rating_not_in: [Float!]
 
   """All values less than the given value."""
-  rating_lt: Int
+  rating_lt: Float
 
   """All values less than or equal the given value."""
-  rating_lte: Int
+  rating_lte: Float
 
   """All values greater than the given value."""
-  rating_gt: Int
+  rating_gt: Float
 
   """All values greater than or equal the given value."""
-  rating_gte: Int
+  rating_gte: Float
   title: String
 
   """All values that are not equal to given value."""
