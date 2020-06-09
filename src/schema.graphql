@@ -131,7 +131,7 @@ input CreatePlaceInput {
 type User {
   id: ID!
   name: String!
-  email: String
+  email: String!
   imageUrl: String
   password: String!
   reviews: [Review!]!

@@ -38,13 +38,13 @@ const Mutation = {
     })
 
     if (!user) {
-      throw new Error('Unable to login')
+      throw new Error("Mauvais nom d'usager ou mot de passe")
     }
 
     const isMatch = await bcrypt.compare(args.data.password, user.password)
 
     if (!isMatch) {
-      throw new Error('Unable to login')
+      throw new Error("Mauvais nom d'usager ou mot de passe")
     }
 
     return {
@@ -79,7 +79,8 @@ const Mutation = {
   },
 
   createReview(parent, args, { prisma, request }, info) {
-    // const userId = getUserId(request)
+    const userId = getUserId(request)
+    console.log(userId)
 
     // // Update Review count for place
     // const existingReviewsForPlace = await.prisma.mutation.updatePlace({
@@ -98,8 +99,7 @@ const Mutation = {
         body: args.data.body,
         author: {
           connect: {
-            // hardcoded until we take care of auth
-            id: "ckb13jalz009f07785le7nni2"
+            id: userId
           }
         },
         place: {
@@ -210,14 +210,14 @@ const Mutation = {
   },
 
   createPhoto(parent, args, { prisma, request }, info) {
-    // const userId = getUserId(request)
+    const userId = getUserId(request)
 
     return prisma.mutation.createPhoto({
       data: {
         url: args.data.url,
         addedBy: {
           connect: {
-            id: "ckb13jalz009f07785le7nni2"
+            id: userId
           },
         },
         place: {
@@ -230,7 +230,7 @@ const Mutation = {
   },
 
   createPlace(parent, { data }, { prisma, request }, info) {
-    // const userId = getUserId(request)
+    const userId = getUserId(request)
 
     return prisma.mutation.createPlace({
       data: {
@@ -238,7 +238,7 @@ const Mutation = {
         addedBy: {
           connect: {
             // temporarily hardcoded until we implement auth
-            id: "ckb13jalz009f07785le7nni2"
+            id: userId
           },
         },
         // is not required for now. correct when we implement category arrays
