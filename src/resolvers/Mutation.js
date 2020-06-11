@@ -80,7 +80,6 @@ const Mutation = {
 
   createReview(parent, args, { prisma, request }, info) {
     const userId = getUserId(request)
-    console.log(userId)
 
     // // Update Review count for place
     // const existingReviewsForPlace = await.prisma.mutation.updatePlace({
@@ -111,6 +110,17 @@ const Mutation = {
     }, info)
   },
   async updateReview(parent, args, { prisma, request }, info) {
+    const userId = getUserId(request)
+    const reviewExistsAndIsByAuthorizedUser = await prisma.exists.Review({
+      id: args.id,
+      author: {
+        id: userId
+      }
+    })
+
+    if (!reviewExistsAndIsByAuthorizedUser) {
+      throw new Error('Unable to update review')
+    }
 
     return prisma.mutation.updateReview({
       data: args.data,
@@ -227,6 +237,22 @@ const Mutation = {
         },
       }
     }, info)
+  },
+  async deletePhoto(parent, args, { prisma, request }, info) {
+    const userId = getUserId(request)
+    const photoExistsAndIsByAuthorizedUser = await prisma.exists.Photo({
+      id: args.id,
+      addedBy: {
+        id: userId
+      }
+    })
+
+    if (!photoExistsAndIsByAuthorizedUser) {
+      throw new Error('Unable to delete photo')
+    }
+
+    return prisma.mutation.deletePhoto({ where: { id: args.id } }, info)
+
   },
 
   createPlace(parent, { data }, { prisma, request }, info) {

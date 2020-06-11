@@ -61,6 +61,7 @@ const Query = {
     return prisma.query.reviews(opArgs, info);
   },
   myReviews(parents, args, { prisma, request }, info) {
+    // console.log(request.request.headers.authorization)
     const userId = getUserId(request);
     const opArgs = {
       where: {
@@ -68,9 +69,9 @@ const Query = {
           id: userId,
         },
       },
-      first: args.first,
-      skip: args.skip,
-      after: args.after,
+      // first: args.first,
+      // skip: args.skip,
+      // after: args.after,
     };
 
     if (args.query) {
@@ -208,6 +209,33 @@ const Query = {
           id: args.query,
         },
       };
+    }
+
+    return prisma.query.photos(opArgs, info);
+  },
+  myPhotos(parents, args, { prisma, request }, info) {
+    // console.log(request.request.headers.authorization)
+    const userId = getUserId(request);
+    const opArgs = {
+      where: {
+        addedBy: {
+          id: userId,
+        },
+      },
+      // first: args.first,
+      // skip: args.skip,
+      // after: args.after,
+    };
+
+    if (args.query) {
+      opArgs.where.OR = [
+        {
+          title_contains: args.query,
+        },
+        {
+          body_contains: args.query,
+        },
+      ];
     }
 
     return prisma.query.photos(opArgs, info);

@@ -32,6 +32,7 @@ type Query {
   places(query: String): [Place!]
   place(query: String): Place!
   photos(query: String): [Photo]
+  myPhotos(query: String): [Photo!]!
 }
 
 type Mutation {
@@ -47,6 +48,7 @@ type Mutation {
   updateComment(id: ID!, data: UpdateCommentInput): Comment!
   createCategory(data: CreateCategoryInput): Category!
   createPhoto(data: CreatePhotoInput!): Photo!
+  deletePhoto(id: ID!): Photo!
   createPlace(data: CreatePlaceInput): Place!
 }
 
