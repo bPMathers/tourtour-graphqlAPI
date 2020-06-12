@@ -285,6 +285,29 @@ const Mutation = {
       }
     }, info)
   },
+  async updatePlace(parent, args, { prisma, request }, info) {
+    console.log(args.data)
+    const userId = getUserId(request)
+    // const PlaceExistsAndIsByAuthorizedUser = await prisma.exists.Place({
+    //   id: args.id,
+    //   addedBy: {
+    //     connect: {
+    //       id: userId
+    //     },
+    //   },
+    // })
+
+    // if (!PlaceExistsAndIsByAuthorizedUser) {
+    //   throw new Error('Unable to update Place')
+    // }
+
+    return prisma.mutation.updatePlace({
+      data: args.data,
+      where: {
+        id: args.id
+      }
+    }, info)
+  },
 }
 
 export default Mutation

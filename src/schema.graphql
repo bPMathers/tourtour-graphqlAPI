@@ -20,6 +20,7 @@ type Query {
     orderBy: ReviewOrderByInput
   ): [Review!]!
   myReviews(query: String, first: Int, skip: Int, after: String): [Review!]!
+  myPlaces(query: String, first: Int, skip: Int, after: String): [Place!]!
   comments(
     first: Int
     skip: Int
@@ -50,6 +51,7 @@ type Mutation {
   createPhoto(data: CreatePhotoInput!): Photo!
   deletePhoto(id: ID!): Photo!
   createPlace(data: CreatePlaceInput): Place!
+  updatePlace(id: ID!, data: UpdatePlaceInput): Place!
 }
 
 type Subscription {
@@ -97,6 +99,8 @@ input UpdateReviewInput {
   rating: Float!
 }
 
+
+
 input CreateCommentInput {
   text: String!
   review: ID!
@@ -112,6 +116,25 @@ input CreatePhotoInput {
 }
 
 input CreatePlaceInput {
+  name: String! 
+  url: String
+  phone: String
+  categoryId: String
+  imageUrl: String
+  address1: String
+  address2: String
+  address3: String
+  city: String
+  state: String
+  zip_code: String
+  country: String
+  formatted_address: String
+  lat: Float
+  lng: Float
+  google_place_id: String
+}
+
+input UpdatePlaceInput {
   name: String! 
   url: String
   phone: String

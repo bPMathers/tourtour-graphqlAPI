@@ -87,6 +87,32 @@ const Query = {
 
     return prisma.query.reviews(opArgs, info);
   },
+  myPlaces(parents, args, { prisma, request }, info) {
+    const userId = getUserId(request);
+    const opArgs = {
+      where: {
+        addedBy: {
+          id: userId,
+        },
+      },
+      // first: args.first,
+      // skip: args.skip,
+      // after: args.after,
+    };
+
+    if (args.query) {
+      opArgs.where.OR = [
+        {
+          title_contains: args.query,
+        },
+        {
+          body_contains: args.query,
+        },
+      ];
+    }
+
+    return prisma.query.places(opArgs, info);
+  },
   comments(parent, args, { prisma }, info) {
     const opArgs = {
       first: args.first,
