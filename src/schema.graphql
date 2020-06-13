@@ -52,6 +52,7 @@ type Mutation {
   deletePhoto(id: ID!): Photo!
   createPlace(data: CreatePlaceInput): Place!
   updatePlace(id: ID!, data: UpdatePlaceInput): Place!
+  deletePlace(id: ID!): Place!
 }
 
 type Subscription {

@@ -286,7 +286,6 @@ const Mutation = {
     }, info)
   },
   async updatePlace(parent, args, { prisma, request }, info) {
-    console.log(args.data)
     const userId = getUserId(request)
     // const PlaceExistsAndIsByAuthorizedUser = await prisma.exists.Place({
     //   id: args.id,
@@ -307,6 +306,22 @@ const Mutation = {
         id: args.id
       }
     }, info)
+  },
+  async deletePlace(parent, args, { prisma, request }, info) {
+    const userId = getUserId(request)
+    const placeExistsAndIsByAuthorizedUser = await prisma.exists.Place({
+      id: args.id,
+      addedBy: {
+        id: userId
+      }
+    })
+
+    if (!placeExistsAndIsByAuthorizedUser) {
+      throw new Error('Unable to delete place')
+    }
+
+    return prisma.mutation.deletePlace({ where: { id: args.id } }, info)
+
   },
 }
 
