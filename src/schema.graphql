@@ -157,6 +157,7 @@ input UpdatePlaceInput {
 type User {
   id: ID!
   name: String!
+  status: String
   email: String!
   imageUrl: String
   password: String!
