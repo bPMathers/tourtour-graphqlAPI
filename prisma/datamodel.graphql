@@ -2,6 +2,8 @@ type User {
   id: ID! @id
   name: String!
   status: String
+  lat: Float
+  lng: Float
   imageUrl: String
   email: String! @unique
   password: String!

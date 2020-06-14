@@ -1,5 +1,5 @@
 # source: http://localhost:4466/tourtour/dev
-# timestamp: Sat Jun 13 2020 19:28:26 GMT-0400 (Eastern Daylight Time)
+# timestamp: Sat Jun 13 2020 20:37:19 GMT-0400 (Eastern Daylight Time)
 
 type AggregateCategory {
   count: Int!
@@ -4132,6 +4132,8 @@ type User implements Node {
   id: ID!
   name: String!
   status: String
+  lat: Float
+  lng: Float
   imageUrl: String
   email: String!
   password: String!
@@ -4158,6 +4160,8 @@ input UserCreateInput {
   id: ID
   name: String!
   status: String
+  lat: Float
+  lng: Float
   imageUrl: String
   email: String!
   password: String!
@@ -4197,6 +4201,8 @@ input UserCreateWithoutCategoriesInput {
   id: ID
   name: String!
   status: String
+  lat: Float
+  lng: Float
   imageUrl: String
   email: String!
   password: String!
@@ -4210,6 +4216,8 @@ input UserCreateWithoutCommentsInput {
   id: ID
   name: String!
   status: String
+  lat: Float
+  lng: Float
   imageUrl: String
   email: String!
   password: String!
@@ -4223,6 +4231,8 @@ input UserCreateWithoutPhotosInput {
   id: ID
   name: String!
   status: String
+  lat: Float
+  lng: Float
   imageUrl: String
   email: String!
   password: String!
@@ -4236,6 +4246,8 @@ input UserCreateWithoutPlacesInput {
   id: ID
   name: String!
   status: String
+  lat: Float
+  lng: Float
   imageUrl: String
   email: String!
   password: String!
@@ -4249,6 +4261,8 @@ input UserCreateWithoutReviewsInput {
   id: ID
   name: String!
   status: String
+  lat: Float
+  lng: Float
   imageUrl: String
   email: String!
   password: String!
@@ -4274,6 +4288,10 @@ enum UserOrderByInput {
   name_DESC
   status_ASC
   status_DESC
+  lat_ASC
+  lat_DESC
+  lng_ASC
+  lng_DESC
   imageUrl_ASC
   imageUrl_DESC
   email_ASC
@@ -4290,6 +4308,8 @@ type UserPreviousValues {
   id: ID!
   name: String!
   status: String
+  lat: Float
+  lng: Float
   imageUrl: String
   email: String!
   password: String!
@@ -4337,6 +4357,8 @@ input UserSubscriptionWhereInput {
 input UserUpdateInput {
   name: String
   status: String
+  lat: Float
+  lng: Float
   imageUrl: String
   email: String
   password: String
@@ -4350,6 +4372,8 @@ input UserUpdateInput {
 input UserUpdateManyMutationInput {
   name: String
   status: String
+  lat: Float
+  lng: Float
   imageUrl: String
   email: String
   password: String
@@ -4393,6 +4417,8 @@ input UserUpdateOneRequiredWithoutReviewsInput {
 input UserUpdateWithoutCategoriesDataInput {
   name: String
   status: String
+  lat: Float
+  lng: Float
   imageUrl: String
   email: String
   password: String
@@ -4405,6 +4431,8 @@ input UserUpdateWithoutCategoriesDataInput {
 input UserUpdateWithoutCommentsDataInput {
   name: String
   status: String
+  lat: Float
+  lng: Float
   imageUrl: String
   email: String
   password: String
@@ -4417,6 +4445,8 @@ input UserUpdateWithoutCommentsDataInput {
 input UserUpdateWithoutPhotosDataInput {
   name: String
   status: String
+  lat: Float
+  lng: Float
   imageUrl: String
   email: String
   password: String
@@ -4429,6 +4459,8 @@ input UserUpdateWithoutPhotosDataInput {
 input UserUpdateWithoutPlacesDataInput {
   name: String
   status: String
+  lat: Float
+  lng: Float
   imageUrl: String
   email: String
   password: String
@@ -4441,6 +4473,8 @@ input UserUpdateWithoutPlacesDataInput {
 input UserUpdateWithoutReviewsDataInput {
   name: String
   status: String
+  lat: Float
+  lng: Float
   imageUrl: String
   email: String
   password: String
@@ -4604,6 +4638,50 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   status_not_ends_with: String
+  lat: Float
+
+  """All values that are not equal to given value."""
+  lat_not: Float
+
+  """All values that are contained in given list."""
+  lat_in: [Float!]
+
+  """All values that are not contained in given list."""
+  lat_not_in: [Float!]
+
+  """All values less than the given value."""
+  lat_lt: Float
+
+  """All values less than or equal the given value."""
+  lat_lte: Float
+
+  """All values greater than the given value."""
+  lat_gt: Float
+
+  """All values greater than or equal the given value."""
+  lat_gte: Float
+  lng: Float
+
+  """All values that are not equal to given value."""
+  lng_not: Float
+
+  """All values that are contained in given list."""
+  lng_in: [Float!]
+
+  """All values that are not contained in given list."""
+  lng_not_in: [Float!]
+
+  """All values less than the given value."""
+  lng_lt: Float
+
+  """All values less than or equal the given value."""
+  lng_lte: Float
+
+  """All values greater than the given value."""
+  lng_gt: Float
+
+  """All values greater than or equal the given value."""
+  lng_gte: Float
   imageUrl: String
 
   """All values that are not equal to given value."""
