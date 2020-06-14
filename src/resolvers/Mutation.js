@@ -78,18 +78,27 @@ const Mutation = {
     }, info)
   },
 
-  createReview(parent, args, { prisma, request }, info) {
+  async createReview(parent, args, { prisma, request }, info) {
     const userId = getUserId(request)
+    console.log(args)
 
-    // // Update Review count for place
-    // const existingReviewsForPlace = await.prisma.mutation.updatePlace({
-    //   where: {
-    //     place: {
-    //       id: args.placeId
-    //     }
-    //   }
-    //   /// etc
-    // })
+    // Update Review count & avgRating for place -- need to do the same for update & delete mutations
+    // 1) Get previous Data from DB
+    const placeToUpdate = await prisma.query.place({
+      where: {
+        id: args.data.placeId
+      }
+    })
+    // 2) Calculate new value and pass to update 
+    await prisma.mutation.updatePlace({
+      where: {
+        id: args.data.placeId
+      },
+      data: {
+        review_count: placeToUpdate.review_count + 1,
+        avgRating: (placeToUpdate.avgRating * placeToUpdate.review_count + args.data.rating) / (placeToUpdate.review_count + 1)
+      }
+    })
 
     return prisma.mutation.createReview({
       data: {
