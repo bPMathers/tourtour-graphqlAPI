@@ -80,6 +80,8 @@ input UpdateUserInput {
   name: String
   email: String
   password: String
+  imageUrl: String
+  status: String
 }
 
 input CreateReviewInput {
