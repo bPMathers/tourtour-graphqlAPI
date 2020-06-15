@@ -32,7 +32,7 @@ type Query {
   categories: [Category!]
   places(query: String): [Place!]
   place(query: String): Place!
-  photos(query: String): [Photo]
+  photos(query: String, userId: ID): [Photo]
   myPhotos(query: String): [Photo!]!
 }
 

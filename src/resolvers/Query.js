@@ -221,6 +221,7 @@ const Query = {
     }, info)
   },
 
+  // rewrite to deal with placePhotos and userPhotos
   photos(parent, args, { prisma }, info) {
     const opArgs = {
       // first: args.first,
@@ -228,6 +229,14 @@ const Query = {
       // after: args.after,
       // orderBy: args.orderBy
     };
+
+    if (args.userId) {
+      opArgs.where = {
+        addedBy: {
+          id: args.userId
+        }
+      }
+    }
 
     if (args.query) {
       opArgs.where = {
