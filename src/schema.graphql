@@ -13,6 +13,7 @@ type Query {
   ): [User!]!
   user(query: String): User!
   reviews(
+    searchQuery: String
     query: String
     first: Int
     skip: Int

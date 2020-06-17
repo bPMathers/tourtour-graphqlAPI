@@ -80,7 +80,6 @@ const Mutation = {
 
   async createReview(parent, args, { prisma, request }, info) {
     const userId = getUserId(request)
-    console.log(args)
 
     // Update Review count & avgRating for place -- need to do the same for update & delete mutations
     // 1) Get previous Data from DB

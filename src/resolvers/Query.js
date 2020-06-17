@@ -38,24 +38,33 @@ const Query = {
       first: args.first,
       skip: args.skip,
       after: args.after,
+      orderBy: args.orderBy,
+      where: {}
     };
 
-    // if (args.query) {
-    //   opArgs.where.OR = [
-    //     {
-    //       title_contains: args.query,
-    //     },
-    //     {
-    //       body_contains: args.query,
-    //     },
-    //   ];
-    // }
     if (args.query) {
       opArgs.where = {
         place: {
           id: args.query
         }
       }
+    }
+
+    if (args.searchQuery) {
+
+      opArgs.where.OR = [
+        {
+          title_contains: args.searchQuery,
+        },
+        {
+          body_contains: args.searchQuery,
+        },
+        // {
+        //   author: {
+        //     name_contains: args.searchQuery,
+        //   }
+        // },
+      ];
     }
 
     return prisma.query.reviews(opArgs, info);
