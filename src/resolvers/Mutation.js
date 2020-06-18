@@ -7,7 +7,6 @@ import generateToken from '../utils/generateToken';
 
 const Mutation = {
   async createUser(parent, args, { prisma }, info) {
-
     const hashedPassword = await hashPassword(args.data.password)
 
     // Our choice to sanitize the client requests or not.
@@ -20,6 +19,8 @@ const Mutation = {
     const user = await prisma.mutation.createUser({
       data: {
         ...args.data,
+        imageUrl: 'https://res.cloudinary.com/db4mzdmnm/image/upload/v1592511339/18-1850_sem47_photos_recettedimanche_ycfjwm.jpg',
+        status: "Aucun statut jusqu'à présent",
         password: hashedPassword
       }, info
     })
