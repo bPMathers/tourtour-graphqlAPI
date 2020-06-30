@@ -19,7 +19,6 @@ type User {
 type Review {
   id: ID! @id
   rating: Float!
-  title: String!
   body: String!
   author: User! @relation(name: "ReviewToUser", onDelete: SET_NULL)
   comments: [Comment!]! @relation(name: "CommentToReview", onDelete: CASCADE)

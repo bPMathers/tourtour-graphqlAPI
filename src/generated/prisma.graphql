@@ -1,5 +1,5 @@
 # source: http://localhost:4466/tourtour/dev
-# timestamp: Sat Jun 13 2020 20:37:19 GMT-0400 (Eastern Daylight Time)
+# timestamp: Tue Jun 30 2020 17:33:49 GMT-0400 (Eastern Daylight Time)
 
 type AggregateCategory {
   count: Int!
@@ -3467,7 +3467,6 @@ type Query {
 type Review implements Node {
   id: ID!
   rating: Float!
-  title: String!
   body: String!
   author: User!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
@@ -3489,7 +3488,6 @@ type ReviewConnection {
 input ReviewCreateInput {
   id: ID
   rating: Float!
-  title: String!
   body: String!
   author: UserCreateOneWithoutReviewsInput!
   comments: CommentCreateManyWithoutReviewInput
@@ -3514,7 +3512,6 @@ input ReviewCreateOneWithoutCommentsInput {
 input ReviewCreateWithoutAuthorInput {
   id: ID
   rating: Float!
-  title: String!
   body: String!
   comments: CommentCreateManyWithoutReviewInput
   place: PlaceCreateOneWithoutReviewsInput!
@@ -3523,7 +3520,6 @@ input ReviewCreateWithoutAuthorInput {
 input ReviewCreateWithoutCommentsInput {
   id: ID
   rating: Float!
-  title: String!
   body: String!
   author: UserCreateOneWithoutReviewsInput!
   place: PlaceCreateOneWithoutReviewsInput!
@@ -3532,7 +3528,6 @@ input ReviewCreateWithoutCommentsInput {
 input ReviewCreateWithoutPlaceInput {
   id: ID
   rating: Float!
-  title: String!
   body: String!
   author: UserCreateOneWithoutReviewsInput!
   comments: CommentCreateManyWithoutReviewInput
@@ -3552,8 +3547,6 @@ enum ReviewOrderByInput {
   id_DESC
   rating_ASC
   rating_DESC
-  title_ASC
-  title_DESC
   body_ASC
   body_DESC
   createdAt_ASC
@@ -3565,7 +3558,6 @@ enum ReviewOrderByInput {
 type ReviewPreviousValues {
   id: ID!
   rating: Float!
-  title: String!
   body: String!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -3642,46 +3634,6 @@ input ReviewScalarWhereInput {
 
   """All values greater than or equal the given value."""
   rating_gte: Float
-  title: String
-
-  """All values that are not equal to given value."""
-  title_not: String
-
-  """All values that are contained in given list."""
-  title_in: [String!]
-
-  """All values that are not contained in given list."""
-  title_not_in: [String!]
-
-  """All values less than the given value."""
-  title_lt: String
-
-  """All values less than or equal the given value."""
-  title_lte: String
-
-  """All values greater than the given value."""
-  title_gt: String
-
-  """All values greater than or equal the given value."""
-  title_gte: String
-
-  """All values containing the given string."""
-  title_contains: String
-
-  """All values not containing the given string."""
-  title_not_contains: String
-
-  """All values starting with the given string."""
-  title_starts_with: String
-
-  """All values not starting with the given string."""
-  title_not_starts_with: String
-
-  """All values ending with the given string."""
-  title_ends_with: String
-
-  """All values not ending with the given string."""
-  title_not_ends_with: String
   body: String
 
   """All values that are not equal to given value."""
@@ -3807,7 +3759,6 @@ input ReviewSubscriptionWhereInput {
 
 input ReviewUpdateInput {
   rating: Float
-  title: String
   body: String
   author: UserUpdateOneRequiredWithoutReviewsInput
   comments: CommentUpdateManyWithoutReviewInput
@@ -3816,13 +3767,11 @@ input ReviewUpdateInput {
 
 input ReviewUpdateManyDataInput {
   rating: Float
-  title: String
   body: String
 }
 
 input ReviewUpdateManyMutationInput {
   rating: Float
-  title: String
   body: String
 }
 
@@ -3864,7 +3813,6 @@ input ReviewUpdateOneRequiredWithoutCommentsInput {
 
 input ReviewUpdateWithoutAuthorDataInput {
   rating: Float
-  title: String
   body: String
   comments: CommentUpdateManyWithoutReviewInput
   place: PlaceUpdateOneRequiredWithoutReviewsInput
@@ -3872,7 +3820,6 @@ input ReviewUpdateWithoutAuthorDataInput {
 
 input ReviewUpdateWithoutCommentsDataInput {
   rating: Float
-  title: String
   body: String
   author: UserUpdateOneRequiredWithoutReviewsInput
   place: PlaceUpdateOneRequiredWithoutReviewsInput
@@ -3880,7 +3827,6 @@ input ReviewUpdateWithoutCommentsDataInput {
 
 input ReviewUpdateWithoutPlaceDataInput {
   rating: Float
-  title: String
   body: String
   author: UserUpdateOneRequiredWithoutReviewsInput
   comments: CommentUpdateManyWithoutReviewInput
@@ -3984,46 +3930,6 @@ input ReviewWhereInput {
 
   """All values greater than or equal the given value."""
   rating_gte: Float
-  title: String
-
-  """All values that are not equal to given value."""
-  title_not: String
-
-  """All values that are contained in given list."""
-  title_in: [String!]
-
-  """All values that are not contained in given list."""
-  title_not_in: [String!]
-
-  """All values less than the given value."""
-  title_lt: String
-
-  """All values less than or equal the given value."""
-  title_lte: String
-
-  """All values greater than the given value."""
-  title_gt: String
-
-  """All values greater than or equal the given value."""
-  title_gte: String
-
-  """All values containing the given string."""
-  title_contains: String
-
-  """All values not containing the given string."""
-  title_not_contains: String
-
-  """All values starting with the given string."""
-  title_starts_with: String
-
-  """All values not starting with the given string."""
-  title_not_starts_with: String
-
-  """All values ending with the given string."""
-  title_ends_with: String
-
-  """All values not ending with the given string."""
-  title_not_ends_with: String
   body: String
 
   """All values that are not equal to given value."""
