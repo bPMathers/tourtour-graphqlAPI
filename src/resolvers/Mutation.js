@@ -39,13 +39,13 @@ const Mutation = {
     })
 
     if (!user) {
-      throw new Error("Mauvais nom d'usager ou mot de passe")
+      throw new Error("BadCredsError")
     }
 
     const isMatch = await bcrypt.compare(args.data.password, user.password)
 
     if (!isMatch) {
-      throw new Error("Mauvais nom d'usager ou mot de passe")
+      throw new Error("BadCredsError")
     }
 
     return {
