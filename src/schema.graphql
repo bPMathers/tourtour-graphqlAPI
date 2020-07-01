@@ -97,6 +97,7 @@ input CreateCategoryInput {
 }
 
 input UpdateReviewInput {
+  placeId: String!
   body: String!
   rating: Float!
 }
@@ -173,7 +174,6 @@ type User {
 
 type Review {
   id: ID!
-  title: String!
   body: String!
   author: User!
   rating: Float!

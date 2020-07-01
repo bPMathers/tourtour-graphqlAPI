@@ -103,7 +103,6 @@ const Mutation = {
     return prisma.mutation.createReview({
       data: {
         rating: args.data.rating,
-        title: args.data.title,
         body: args.data.body,
         author: {
           connect: {
@@ -158,7 +157,15 @@ const Mutation = {
     })
 
     return prisma.mutation.updateReview({
-      data: args.data,
+      data: {
+        rating: args.data.rating,
+        body: args.data.body,
+        place: {
+          connect: {
+            id: args.data.placeId
+          }
+        }
+      },
       where: {
         id: args.id
       }
