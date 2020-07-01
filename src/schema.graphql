@@ -88,7 +88,6 @@ input UpdateUserInput {
 input CreateReviewInput {
   placeId: String!
   rating: Float!
-  title: String!
   body: String!
 }
 
@@ -98,7 +97,6 @@ input CreateCategoryInput {
 }
 
 input UpdateReviewInput {
-  title: String!
   body: String!
   rating: Float!
 }

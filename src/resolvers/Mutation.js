@@ -120,6 +120,7 @@ const Mutation = {
   },
   async updateReview(parent, args, { prisma, request }, info) {
     const userId = getUserId(request)
+    // const opArgs = {}
     const reviewExistsAndIsByAuthorizedUser = await prisma.exists.Review({
       id: args.id,
       author: {
@@ -130,6 +131,31 @@ const Mutation = {
     if (!reviewExistsAndIsByAuthorizedUser) {
       throw new Error('Unable to update review')
     }
+
+    // Get review rating prior to update
+    const reviewToUpdate = await prisma.query.review({
+      where: {
+        id: args.id
+      }
+    })
+    const previousRating = reviewToUpdate.rating
+
+    // Update avgRating for place -- 
+    // 1) Get previous Place Data from DB 
+    const placeToUpdate = await prisma.query.place({
+      where: {
+        id: args.data.placeId
+      }
+    })
+    // 2) Calculate new value and pass to updatePlace
+    await prisma.mutation.updatePlace({
+      where: {
+        id: args.data.placeId
+      },
+      data: {
+        avgRating: (placeToUpdate.avgRating * placeToUpdate.review_count - previousRating + args.data.rating) / (placeToUpdate.review_count)
+      }
+    })
 
     return prisma.mutation.updateReview({
       data: args.data,
