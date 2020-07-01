@@ -216,12 +216,12 @@ const Query = {
   },
 
   place(parent, args, { prisma }, info) {
-    const opArgs = {
-      // first: args.first,
-      // skip: args.skip,
-      // after: args.after,
-      // orderBy: args.orderBy
-    };
+    // const opArgs = {
+    //   // first: args.first,
+    //   // skip: args.skip,
+    //   // after: args.after,
+    //   // orderBy: args.orderBy
+    // };
 
     return prisma.query.place({
       where: {
