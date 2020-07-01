@@ -236,7 +236,7 @@ const Query = {
       // first: args.first,
       // skip: args.skip,
       // after: args.after,
-      // orderBy: args.orderBy
+      orderBy: args.orderBy
     };
 
     if (args.userId) {

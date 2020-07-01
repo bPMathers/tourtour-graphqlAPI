@@ -1,7 +1,7 @@
 # Schema for our NodeJS GraphQL API. Should represent a subset of what we want to use from what is available in the Prisma GraphQL API (?)
 
 # line below is to import (enums, in this case. could we want some other stuff ?) from generated file instead of adding it manually everytime we re-generate it. Use a coma separated list to import more than one
-# import UserOrderByInput, ReviewOrderByInput, CommentOrderByInput from './generated/prisma.graphql'
+# import UserOrderByInput, ReviewOrderByInput, CommentOrderByInput, PhotoOrderByInput from './generated/prisma.graphql'
 
 type Query {
   users(
@@ -33,7 +33,7 @@ type Query {
   categories: [Category!]
   places(query: String): [Place!]
   place(query: String): Place!
-  photos(query: String, userId: ID): [Photo]
+  photos(query: String, userId: ID, orderBy: PhotoOrderByInput): [Photo]
   myPhotos(query: String): [Photo!]!
 }
 
