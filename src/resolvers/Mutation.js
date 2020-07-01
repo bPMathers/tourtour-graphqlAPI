@@ -131,7 +131,7 @@ const Mutation = {
       throw new Error('Unable to update review')
     }
 
-    // Get review rating prior to update
+    // Get review rating prior to update. 
     const reviewToUpdate = await prisma.query.review({
       where: {
         id: args.id
@@ -146,7 +146,7 @@ const Mutation = {
         id: args.data.placeId
       }
     })
-    // 2) Calculate new value and pass to updatePlace
+    // 2) Calculate new avgRating value and pass to updatePlace
     await prisma.mutation.updatePlace({
       where: {
         id: args.data.placeId
@@ -184,6 +184,23 @@ const Mutation = {
     if (!reviewExistsAndIsByAuthorizedUser) {
       throw new Error('Unable to delete review')
     }
+
+    // 1) Get previous Place Data from DB 
+    const placeToUpdate = await prisma.query.place({
+      where: {
+        id: args.data.placeId
+      }
+    })
+    // 2) Calculate new avgRating value and pass to updatePlace
+    await prisma.mutation.updatePlace({
+      where: {
+        id: args.data.placeId
+      },
+      data: {
+        avgRating: (placeToUpdate.avgRating * placeToUpdate.review_count - args.data.rating) / (placeToUpdate.review_count - 1),
+        review_count: placeToUpdate.review_count - 1
+      }
+    })
 
     return prisma.mutation.deleteReview({ where: { id: args.id } }, info)
 

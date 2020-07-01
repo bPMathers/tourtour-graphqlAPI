@@ -43,7 +43,7 @@ type Mutation {
   deleteUser: User!
   updateUser(data: UpdateUserInput!): User!
   createReview(data: CreateReviewInput!): Review!
-  deleteReview(id: ID!): Review!
+  deleteReview(id: ID!, data: DeleteReviewInput): Review!
   updateReview(id: ID!, data: UpdateReviewInput): Review!
   createComment(data: CreateCommentInput!): Comment!
   deleteComment(id: ID!): Comment!
@@ -100,6 +100,11 @@ input UpdateReviewInput {
   placeId: String!
   body: String!
   rating: Float!
+}
+
+input DeleteReviewInput {
+  rating: Float!
+  placeId: String!
 }
 
 
