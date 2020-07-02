@@ -54,9 +54,6 @@ const Query = {
 
       opArgs.where.OR = [
         {
-          title_contains: args.searchQuery,
-        },
-        {
           body_contains: args.searchQuery,
         },
         // {
