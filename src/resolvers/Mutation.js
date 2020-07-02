@@ -192,15 +192,28 @@ const Mutation = {
       }
     })
     // 2) Calculate new avgRating value and pass to updatePlace
-    await prisma.mutation.updatePlace({
-      where: {
-        id: args.data.placeId
-      },
-      data: {
-        avgRating: (placeToUpdate.avgRating * placeToUpdate.review_count - args.data.rating) / (placeToUpdate.review_count - 1),
-        review_count: placeToUpdate.review_count - 1
-      }
-    })
+    if (placeToUpdate.review_count.length < 2) {
+
+      await prisma.mutation.updatePlace({
+        where: {
+          id: args.data.placeId
+        },
+        data: {
+          avgRating: (placeToUpdate.avgRating * placeToUpdate.review_count - args.data.rating) / (placeToUpdate.review_count - 1),
+          review_count: placeToUpdate.review_count - 1
+        }
+      })
+    } else {
+      await prisma.mutation.updatePlace({
+        where: {
+          id: args.data.placeId
+        },
+        data: {
+          avgRating: 0,
+          review_count: placeToUpdate.review_count - 1
+        }
+      })
+    }
 
     return prisma.mutation.deleteReview({ where: { id: args.id } }, info)
 
