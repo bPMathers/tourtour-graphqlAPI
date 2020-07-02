@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import hashPassword from '../utils/hashPassword'
 import getUserId from '../utils/getUserId';
 import generateToken from '../utils/generateToken';
+import sendEmailToAdmin from '../utils/sendEmailToAdmin';
 
 const Mutation = {
   async createUser(parent, args, { prisma }, info) {
@@ -24,6 +25,8 @@ const Mutation = {
         password: hashedPassword
       }, info
     })
+
+    sendEmailToAdmin(args.data);
 
     return {
       user,
