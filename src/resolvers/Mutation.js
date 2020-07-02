@@ -21,7 +21,7 @@ const Mutation = {
       data: {
         ...args.data,
         imageUrl: 'https://res.cloudinary.com/db4mzdmnm/image/upload/v1592511339/18-1850_sem47_photos_recettedimanche_ycfjwm.jpg',
-        status: "Aucun statut jusqu'à présent",
+        status: "NoStatus",
         password: hashedPassword
       }, info
     })
