@@ -52,16 +52,9 @@ const Query = {
 
     if (args.searchQuery) {
 
-      opArgs.where.OR = [
-        {
-          body_contains: args.searchQuery,
-        },
-        // {
-        //   author: {
-        //     name_contains: args.searchQuery,
-        //   }
-        // },
-      ];
+      opArgs.where = {
+        body_contains: args.searchQuery,
+      }
     }
 
     return prisma.query.reviews(opArgs, info);
