@@ -31,7 +31,7 @@ type Query {
   me: User!
   review(id: ID!): Review!
   categories: [Category!]
-  places(query: String): [Place!]
+  places(query: String, userId: ID): [Place!]
   place(query: String): Place!
   photos(query: String, userId: ID, orderBy: PhotoOrderByInput): [Photo]
   myPhotos(query: String): [Photo!]!

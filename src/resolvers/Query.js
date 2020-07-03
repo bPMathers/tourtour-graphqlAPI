@@ -54,6 +54,9 @@ const Query = {
 
       opArgs.where = {
         body_contains: args.searchQuery,
+        place: {
+          id: args.query
+        }
       }
     }
 
@@ -198,6 +201,14 @@ const Query = {
       opArgs.where = {
         category: {
           id: args.query,
+        },
+      };
+    }
+
+    if (args.userId) {
+      opArgs.where = {
+        addedBy: {
+          id: args.userId,
         },
       };
     }
