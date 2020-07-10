@@ -11,11 +11,11 @@ const Mutation = {
     const hashedPassword = await hashPassword(args.data.password)
 
     // Our choice to sanitize the client requests or not.
-    // const emailTaken = await prisma.exists.User({ email: args.data.email })
+    const emailTaken = await prisma.exists.User({ email: args.data.email })
 
-    // if (emailTaken) {
-    //   throw new Error('Email taken.');
-    // }
+    if (emailTaken) {
+      throw new Error("EmailTakenError")
+    }
 
     const user = await prisma.mutation.createUser({
       data: {
